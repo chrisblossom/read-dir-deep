@@ -1,6 +1,6 @@
 # read-dir-deep
 
-[![npm](https://img.shields.io/npm/v/read-dir-deep.svg?label=npm%20version)](https://www.npmjs.com/package/@chrisblossom/read-dir-deep)
+[![npm](https://img.shields.io/npm/v/read-dir-deep.svg?label=npm%20version)](https://www.npmjs.com/package/read-dir-deep)
 [![Linux Build Status](https://img.shields.io/circleci/project/github/chrisblossom/read-dir-deep/master.svg?label=linux%20build)](https://circleci.com/gh/chrisblossom/read-dir-deep/tree/master)
 [![Windows Build Status](https://img.shields.io/appveyor/ci/chrisblossom/read-dir-deep/master.svg?label=windows%20build)](https://ci.appveyor.com/project/chrisblossom/read-dir-deep/branch/master)
 [![Code Coverage](https://img.shields.io/coveralls/github/chrisblossom/read-dir-deep/master.svg)](https://coveralls.io/github/chrisblossom/read-dir-deep?branch=master)
