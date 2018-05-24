@@ -30,11 +30,39 @@ describe('readDirDeep', () => {
         });
     });
 
-    describe('handles empty directory', () => {
+    describe('handles empty initial directory', () => {
         const pathname = path.resolve(os.tmpdir(), 'read-dir-deep-dir');
 
         beforeEach(() => {
             makeDir.sync(pathname);
+        });
+
+        afterEach(() => {
+            del.sync(pathname, { force: true });
+        });
+
+        const checkResult = (result) => {
+            expect(result).toEqual([]);
+        };
+
+        test('async', async () => {
+            const result = await readDirDeep(pathname);
+            checkResult(result);
+        });
+
+        test('sync', () => {
+            const result = readDirDeep.sync(pathname);
+
+            checkResult(result);
+        });
+    });
+
+    describe('handles empty nested directory', () => {
+        const pathname = path.resolve(os.tmpdir(), 'read-dir-deep-dir');
+        const nested = path.resolve(pathname, 'nested');
+
+        beforeEach(() => {
+            makeDir.sync(nested);
         });
 
         afterEach(() => {
