@@ -1,0 +1,68 @@
+{
+  "name": "read-dir-deep",
+  "version": "0.1.0",
+  "description": "Returns a recursive list of all files inside a directory",
+  "keywords": [
+    "directory",
+    "dir",
+    "ls",
+    "ll",
+    "file",
+    "list",
+    "recursive",
+    "deep"
+  ],
+  "license": "MIT",
+  "repository": "chrisblossom/read-dir-deep",
+  "homepage": "https://github.com/chrisblossom/read-dir-deep",
+  "author": "Chris Blossom",
+  "engines": {
+    "node": ">=6.9.0",
+    "npm": ">=3.10.10",
+    "yarn": ">=1.6.0"
+  },
+  "devEngines": {
+    "node": ">=8.9.0",
+    "npm": ">=5.5.1"
+  },
+  "files": [
+    "dist/",
+    "flow-typed/"
+  ],
+  "main": "dist/read-dir-deep.js",
+  "scripts": {
+    "build": "backtrack build --production",
+    "check-all": "backtrack check-all",
+    "clean": "backtrack clean",
+    "dev": "backtrack dev --development",
+    "flow": "backtrack flow",
+    "format": "backtrack format",
+    "lint": "backtrack lint",
+    "lint.fix": "backtrack lint.fix",
+    "precommit": "backtrack precommit",
+    "prepublishOnly": "backtrack prepublishOnly",
+    "prepush": "backtrack prepush",
+    "test": "backtrack test",
+    "test.ci": "backtrack test.ci",
+    "test.ci-pretest": "backtrack test.ci-pretest",
+    "test.update": "jest --updateSnapshot",
+    "test.watch": "jest --watch"
+  },
+  "lint-staged": {
+    "*.{js,md,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "./.babelrc.js"
+    ]
+  },
+  "devDependencies": {
+    "@backtrack/core": "^0.1.18",
+    "@backtrack/preset-node-module": "^0.1.11",
+    "del": "^3.0.0",
+    "make-dir": "^1.3.0"
+  }
+}

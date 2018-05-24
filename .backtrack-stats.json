@@ -1,0 +1,73 @@
+{
+    "fileManager": {
+        "directories": [
+            ".circleci",
+            "dist",
+            "src"
+        ],
+        "files": {
+            ".babelrc.js": "31340d9716a55146d1d2f2573bb6b4a67c4957774fb1c7175397966be7b0e10f",
+            ".circleci/config.yml": "3b7696d7b955ebd4ac0f5eeacfff227acea15301b6e450b111677d32411b2a8b",
+            ".editorconfig": "65c8c6dd2b55cd63f7a55d2ed77bb1344a345ed651c5b0a1cb689fa95753e63d",
+            ".eslintignore": "7b358a16955be6b9b56add38102fccd293af540701ac91cd5020bfe37fe3fbb3",
+            ".eslintrc.js": "0de8c62f28870b2afeb3eb58a5a9a106a96c9181aa9478f71760bb155bb4a205",
+            ".flowconfig": "a097b005abea75e2e62d08a1cdbf12263aa9e5c220be921f7992a1cbc1e1bd18",
+            ".gitignore": "715c4f869d50d4e11254a97441df027e6cabd50612d10e844e5efba4078f484f",
+            ".npmrc": "f92bfc9e4d622a5c53c3fcd1b61206420f8dc666db99e57560c33ad2fdc80a47",
+            ".prettierignore": "7b358a16955be6b9b56add38102fccd293af540701ac91cd5020bfe37fe3fbb3",
+            ".prettierrc.js": "d30f794e5447d44ad2ed8a1123bc15fdaf6775ad7776f3c1411e3b965f3d3a20",
+            ".yarnrc": "e4bdd4d0bcb6dd15e5585dc6fa2c90780abaf4904305afb12d9af02000e070f3",
+            "CHANGELOG.md": "ignoreUpdates",
+            "README.md": "ignoreUpdates",
+            "appveyor.yml": "e26fc69a9c740e6fe6267ea2da435aa54c83a110eface66642470dc2e8336713",
+            "jest.config.js": "2dfc22f99102a3d4d2335ad31b24e0902a3b81348aa74acf270d9c88ed0a2bf3",
+            "src/read-dir-deep.js": "ignoreUpdates",
+            "wallaby.config.js": "d37d10441a299a78a0b6b608fd44add196354f55a6eee2e9854cfef49baa033f"
+        }
+    },
+    "packageJson": {
+        "babel": {
+            "presets": [
+                "./.babelrc.js"
+            ]
+        },
+        "devEngines": {
+            "node": ">=8.9.0",
+            "npm": ">=5.5.1"
+        },
+        "engines": {
+            "node": ">=6.9.0",
+            "npm": ">=3.10.10",
+            "yarn": ">=1.6.0"
+        },
+        "files": [
+            "dist/",
+            "flow-typed/"
+        ],
+        "lint-staged": {
+            "*.{js,md,json}": [
+                "prettier --write",
+                "git add"
+            ]
+        },
+        "main": "dist/read-dir-deep.js",
+        "scripts": {
+            "build": "backtrack build --production",
+            "check-all": "backtrack check-all",
+            "clean": "backtrack clean",
+            "dev": "backtrack dev --development",
+            "flow": "backtrack flow",
+            "format": "backtrack format",
+            "lint": "backtrack lint",
+            "lint.fix": "backtrack lint.fix",
+            "precommit": "backtrack precommit",
+            "prepublishOnly": "backtrack prepublishOnly",
+            "prepush": "backtrack prepush",
+            "test": "backtrack test",
+            "test.ci": "backtrack test.ci",
+            "test.ci-pretest": "backtrack test.ci-pretest",
+            "test.update": "jest --updateSnapshot",
+            "test.watch": "jest --watch"
+        }
+    }
+}
