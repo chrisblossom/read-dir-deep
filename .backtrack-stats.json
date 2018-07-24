@@ -3,6 +3,7 @@
         "directories": [
             ".circleci",
             "dist",
+            "flow-typed",
             "src"
         ],
         "files": {
@@ -20,6 +21,7 @@
             "CHANGELOG.md": "ignoreUpdates",
             "README.md": "ignoreUpdates",
             "appveyor.yml": "e26fc69a9c740e6fe6267ea2da435aa54c83a110eface66642470dc2e8336713",
+            "flow-typed/jest.js": "dfb57c1db3a0b01a101ca14855be030bcc566be90bf00110f2fa16b42e92158d",
             "jest.config.js": "2dfc22f99102a3d4d2335ad31b24e0902a3b81348aa74acf270d9c88ed0a2bf3",
             "src/read-dir-deep.js": "ignoreUpdates",
             "wallaby.config.js": "d37d10441a299a78a0b6b608fd44add196354f55a6eee2e9854cfef49baa033f"
@@ -30,10 +32,6 @@
             "presets": [
                 "./.babelrc.js"
             ]
-        },
-        "devEngines": {
-            "node": ">=8.9.0",
-            "npm": ">=5.5.1"
         },
         "engines": {
             "node": ">=6.9.0",
