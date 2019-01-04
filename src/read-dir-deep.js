@@ -51,42 +51,41 @@ async function readDirDeep(startPath: string) {
         }
         /* eslint-enable */
 
-        // $FlowIssue
-        const sorted = result.sort();
-
-        return sorted;
+        return result;
     };
 
     const fileList = await getFiles(startPath);
 
-    return fileList;
+    // $FlowIssue
+    const fileListSorted = fileList.sort();
+
+    return fileListSorted;
 }
 
 function readDirDeepSync(startPath: string) {
     const getFiles = (dir: string) => {
-        const result = fs
-            .readdirSync(dir)
-            .reduce((acc, file) => {
-                const pathname = path.resolve(dir, file);
+        const result = fs.readdirSync(dir).reduce((acc, file) => {
+            const pathname = path.resolve(dir, file);
 
-                const isDirectory = fs.statSync(pathname).isDirectory();
-                if (isDirectory) {
-                    const dirList = getFiles(pathname);
+            const isDirectory = fs.statSync(pathname).isDirectory();
+            if (isDirectory) {
+                const dirList = getFiles(pathname);
 
-                    return [...acc, ...dirList];
-                }
+                return [...acc, ...dirList];
+            }
 
-                const relativePath = path.relative(startPath, pathname);
-                return [...acc, relativePath];
-            }, [])
-            .sort();
+            const relativePath = path.relative(startPath, pathname);
+            return [...acc, relativePath];
+        }, []);
 
         return result;
     };
 
     const fileList = getFiles(startPath);
 
-    return fileList;
+    const fileListSorted = fileList.sort();
+
+    return fileListSorted;
 }
 
 readDirDeep.sync = readDirDeepSync;

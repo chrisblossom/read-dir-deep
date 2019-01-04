@@ -12,9 +12,18 @@ describe('readDirDeep', () => {
 
         const checkResult = (result) => {
             expect(result).toEqual([
-                path.normalize('nested/nested-inside/inside.js'),
-                path.normalize('nested/other.js'),
-                path.normalize('test-file.js'),
+                path.normalize('a.js'),
+                path.normalize('b.js'),
+                path.normalize('d.js'),
+                path.normalize('nested/0/0.js'),
+                path.normalize('nested/0/a.js'),
+                path.normalize('nested/0/b.js'),
+                path.normalize('nested/1.js'),
+                path.normalize('nested/a.js'),
+                path.normalize('nested/b.js'),
+                path.normalize('nested/c/a.js'),
+                path.normalize('nested/c/b.js'),
+                path.normalize('nested/c/c.js'),
             ]);
         };
 
@@ -86,10 +95,7 @@ describe('readDirDeep', () => {
     });
 
     describe('throws error when not a directory', () => {
-        const pathname = path.resolve(
-            __dirname,
-            '__sandbox__/files1/test-file.js',
-        );
+        const pathname = path.resolve(__dirname, '__sandbox__/files1/a.js');
 
         const checkError = (error) => {
             expect(error.code).toEqual('ENOTDIR');
