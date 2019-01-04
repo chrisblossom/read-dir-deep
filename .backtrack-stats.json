@@ -7,32 +7,29 @@
             "src"
         ],
         "files": {
-            ".babelrc.js": "31340d9716a55146d1d2f2573bb6b4a67c4957774fb1c7175397966be7b0e10f",
-            ".circleci/config.yml": "3b7696d7b955ebd4ac0f5eeacfff227acea15301b6e450b111677d32411b2a8b",
+            ".babelrc.js": "fd0204cfa3fea8cf8f18930882fd0cdeb96450ed595c55b3ab1848b86bc7a922",
+            ".circleci/config.yml": "f8afa0de22d1ce5ee659b86993cf898e85b383599dab0f06ef052d1f4510ef37",
             ".editorconfig": "65c8c6dd2b55cd63f7a55d2ed77bb1344a345ed651c5b0a1cb689fa95753e63d",
-            ".eslintignore": "7b358a16955be6b9b56add38102fccd293af540701ac91cd5020bfe37fe3fbb3",
+            ".eslintignore": "df678e7a458aba93c115564cfd4a701bdf4397e943de8745d37f2798c1dc5c11",
             ".eslintrc.js": "0de8c62f28870b2afeb3eb58a5a9a106a96c9181aa9478f71760bb155bb4a205",
             ".flowconfig": "a097b005abea75e2e62d08a1cdbf12263aa9e5c220be921f7992a1cbc1e1bd18",
             ".gitignore": "715c4f869d50d4e11254a97441df027e6cabd50612d10e844e5efba4078f484f",
+            ".huskyrc.js": "f7b6f2abb505e7b45fb028edb1a032b9fb7c997e4d563fdd0567beb582f8da76",
+            ".lintstagedrc.js": "c8dd8df94d9c8de4503bc1ab4b4ea12c7450d76ebbd50c9b4c3c7975609e28da",
             ".npmrc": "f92bfc9e4d622a5c53c3fcd1b61206420f8dc666db99e57560c33ad2fdc80a47",
-            ".prettierignore": "7b358a16955be6b9b56add38102fccd293af540701ac91cd5020bfe37fe3fbb3",
+            ".prettierignore": "df678e7a458aba93c115564cfd4a701bdf4397e943de8745d37f2798c1dc5c11",
             ".prettierrc.js": "d30f794e5447d44ad2ed8a1123bc15fdaf6775ad7776f3c1411e3b965f3d3a20",
             ".yarnrc": "e4bdd4d0bcb6dd15e5585dc6fa2c90780abaf4904305afb12d9af02000e070f3",
             "CHANGELOG.md": "ignoreUpdates",
             "README.md": "ignoreUpdates",
-            "appveyor.yml": "e26fc69a9c740e6fe6267ea2da435aa54c83a110eface66642470dc2e8336713",
+            "appveyor.yml": "251406424b8cb49b1a8858ef7eb521ae57856964625daed85b591692e8f98e15",
             "flow-typed/jest.js": "dfb57c1db3a0b01a101ca14855be030bcc566be90bf00110f2fa16b42e92158d",
-            "jest.config.js": "2dfc22f99102a3d4d2335ad31b24e0902a3b81348aa74acf270d9c88ed0a2bf3",
+            "jest.config.js": "89b921f7f379662d979221ac8124f85a5c2443a66f5d6922babf18e67b0f5727",
             "src/read-dir-deep.js": "ignoreUpdates",
-            "wallaby.config.js": "d37d10441a299a78a0b6b608fd44add196354f55a6eee2e9854cfef49baa033f"
+            "wallaby.config.js": "e49a5402ae304b54d6aa0087e0d6d95b0561a03dd16783d6d0a513036cf98712"
         }
     },
     "packageJson": {
-        "babel": {
-            "presets": [
-                "./.babelrc.js"
-            ]
-        },
         "engines": {
             "node": ">=6.9.0",
             "npm": ">=3.10.10"
@@ -41,23 +38,17 @@
             "dist/",
             "flow-typed/"
         ],
-        "lint-staged": {
-            "*.{js,md,json}": [
-                "prettier --write",
-                "git add"
-            ]
-        },
         "main": "dist/read-dir-deep.js",
         "scripts": {
             "build": "backtrack build --production",
-            "check-all": "backtrack check-all",
             "clean": "backtrack clean",
             "dev": "backtrack dev --development",
             "flow": "backtrack flow",
             "format": "backtrack format",
+            "git-pre-commit": "backtrack git-pre-commit",
+            "git-pre-push": "backtrack git-pre-push",
             "lint": "backtrack lint",
             "lint.fix": "backtrack lint.fix",
-            "precommit": "backtrack precommit",
             "prepublishOnly": "backtrack prepublishOnly",
             "prepush": "backtrack prepush",
             "test": "backtrack test",

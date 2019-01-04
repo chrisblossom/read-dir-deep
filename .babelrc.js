@@ -10,31 +10,29 @@
 'use strict';
 
 const Backtrack = require('@backtrack/core');
+const nodeVersion = require('@backtrack/preset-node-module/lib/utils/node-version');
 
-const { configManager, pkg } = new Backtrack();
+const { pkg, configManager } = new Backtrack();
 
 const packageId = '@backtrack/preset-node-module';
 
 const babel = {
     presets: [
         [
-            pkg.resolve(packageId, 'babel-preset-env'),
+            pkg.resolve(packageId, '@babel/preset-env'),
             {
                 targets: {
-                    node: '6.9.0',
+                    node: nodeVersion,
                 },
-                useBuiltIns: true,
+                useBuiltIns: 'entry',
             },
         ],
-        pkg.resolve(packageId, 'babel-preset-flow'),
+        pkg.resolve(packageId, '@babel/preset-flow'),
     ],
     plugins: [
         pkg.resolve(packageId, 'babel-plugin-dynamic-import-node'),
-        pkg.resolve(packageId, 'babel-plugin-transform-object-rest-spread'),
-        [
-            pkg.resolve(packageId, 'babel-plugin-transform-class-properties'),
-            { spec: true },
-        ],
+        pkg.resolve(packageId, '@babel/plugin-proposal-class-properties'),
+        pkg.resolve(packageId, '@babel/plugin-transform-strict-mode'),
     ],
 };
 

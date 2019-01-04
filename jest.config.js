@@ -22,7 +22,8 @@ const jest = {
     moduleDirectories: ['node_modules'],
     testEnvironment: 'node',
     collectCoverage: false,
-    coveragePathIgnorePatterns: ['/__sandbox__/'],
+    coveragePathIgnorePatterns: ['<rootDir>/(.*/?)__sandbox__'],
+    testPathIgnorePatterns: ['<rootDir>/(.*/?)__sandbox__'],
     snapshotSerializers: [
         pkg.resolve(packageId, 'jest-serializer-path'),
         pkg.resolve(packageId, 'jest-snapshot-serializer-function-name'),
