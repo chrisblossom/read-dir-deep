@@ -21,10 +21,15 @@ const readDirDeep = require('read-dir-deep');
 const dir = './fake/dir';
 
 // async
-readDirDeep(dir).then((files) => {
-    // [file list]
-});
+const files = await readDirDeep(dir);
 
 // sync
 const files = readDirDeep.sync(dir);
+
+// files = [
+//    'a.js',
+//    'b.js',
+//    'nested/a.js',
+//    'nested-other/b/c.js',
+// ];
 ```
