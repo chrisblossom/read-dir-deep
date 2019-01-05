@@ -1,100 +1,125 @@
 /* @flow */
 
 import path from 'path';
-import os from 'os';
-import del from 'del';
-import makeDir from 'make-dir';
-import readDirDeep from './read-dir-deep';
+import fs from 'fs';
+import TempSandbox from 'temp-sandbox';
+
+const readDirDeep = (startPath) => require('./read-dir-deep')(startPath);
+readDirDeep.sync = (startPath) => require('./read-dir-deep').sync(startPath);
+
+const sandbox = new TempSandbox();
+beforeEach(async () => {
+    await sandbox.clean();
+});
+
+afterAll(async () => {
+    await sandbox.destroySandbox();
+});
+
+const normalizePaths = (paths) =>
+    paths.map((pathname) => path.normalize(pathname));
 
 describe('gets all nested files', () => {
-    const pathname = path.resolve(__dirname, '__sandbox__/files1');
+    beforeEach(async () => {
+        await Promise.all([
+            sandbox.createFile('a.js'),
+            sandbox.createFile('b.js'),
+            sandbox.createFile('d.js'),
+            sandbox.createFile('nested/1.js'),
+            sandbox.createFile('nested/a.js'),
+            sandbox.createFile('nested/b.js'),
+            sandbox.createFile('nested/0/0.js'),
+            sandbox.createFile('nested/0/a.js'),
+            sandbox.createFile('nested/0/b.js'),
+            sandbox.createFile('nested/c/a.js'),
+            sandbox.createFile('nested/c/a.js'),
+            sandbox.createFile('nested/c/b.js'),
+            sandbox.createFile('nested/c/b.js'),
+            sandbox.createFile('nested/c/c.js'),
+        ]);
+    });
 
     const checkResult = (result) => {
-        expect(result).toEqual([
-            path.normalize('a.js'),
-            path.normalize('b.js'),
-            path.normalize('d.js'),
-            path.normalize('nested/0/0.js'),
-            path.normalize('nested/0/a.js'),
-            path.normalize('nested/0/b.js'),
-            path.normalize('nested/1.js'),
-            path.normalize('nested/a.js'),
-            path.normalize('nested/b.js'),
-            path.normalize('nested/c/a.js'),
-            path.normalize('nested/c/b.js'),
-            path.normalize('nested/c/c.js'),
-        ]);
+        expect(result).toEqual(
+            normalizePaths([
+                'a.js',
+                'b.js',
+                'd.js',
+                'nested/0/0.js',
+                'nested/0/a.js',
+                'nested/0/b.js',
+                'nested/1.js',
+                'nested/a.js',
+                'nested/b.js',
+                'nested/c/a.js',
+                'nested/c/b.js',
+                'nested/c/c.js',
+            ]),
+        );
     };
 
     test('async', async () => {
-        const result = await readDirDeep(pathname);
+        const result = await readDirDeep(sandbox.dir);
         checkResult(result);
     });
 
     test('sync', () => {
-        const result = readDirDeep.sync(pathname);
+        const result = readDirDeep.sync(sandbox.dir);
 
         checkResult(result);
     });
 });
 
 describe('handles empty initial directory', () => {
-    const pathname = path.resolve(os.tmpdir(), 'read-dir-deep-dir');
-
-    beforeEach(() => {
-        makeDir.sync(pathname);
-    });
-
-    afterEach(() => {
-        del.sync(pathname, { force: true });
-    });
-
     const checkResult = (result) => {
         expect(result).toEqual([]);
     };
 
     test('async', async () => {
-        const result = await readDirDeep(pathname);
+        const result = await readDirDeep(sandbox.dir);
         checkResult(result);
     });
 
     test('sync', () => {
-        const result = readDirDeep.sync(pathname);
+        const result = readDirDeep.sync(sandbox.dir);
 
         checkResult(result);
     });
 });
 
 describe('handles empty nested directory', () => {
-    const pathname = path.resolve(os.tmpdir(), 'read-dir-deep-dir');
-    const nested = path.resolve(pathname, 'nested');
+    const nested = path.resolve(sandbox.dir, 'nested');
 
-    beforeEach(() => {
-        makeDir.sync(nested);
-    });
-
-    afterEach(() => {
-        del.sync(pathname, { force: true });
+    beforeEach(async () => {
+        await sandbox.createDir('nested');
     });
 
     const checkResult = (result) => {
+        const dirExists = fs.statSync(nested).isDirectory();
+
+        expect(dirExists).toEqual(true);
+
         expect(result).toEqual([]);
     };
 
     test('async', async () => {
-        const result = await readDirDeep(pathname);
+        const result = await readDirDeep(sandbox.dir);
         checkResult(result);
     });
 
     test('sync', () => {
-        const result = readDirDeep.sync(pathname);
+        const result = readDirDeep.sync(sandbox.dir);
 
         checkResult(result);
     });
 });
 
 describe('throws error when not a directory', () => {
-    const pathname = path.resolve(__dirname, '__sandbox__/files1/a.js');
+    const pathname = path.resolve(sandbox.dir, 'a.js');
+
+    beforeEach(async () => {
+        await sandbox.createFile('a.js');
+    });
 
     const checkError = (error) => {
         expect(error.code).toEqual('ENOTDIR');
