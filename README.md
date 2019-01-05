@@ -33,3 +33,14 @@ const files = readDirDeep.sync(dir);
 //    'nested-other/b/c.js',
 // ];
 ```
+
+## Options
+
+```js
+const files = await readDirDeep(dir, {
+    /**
+     * Return full file paths
+     */
+    relative: false,
+});
+```

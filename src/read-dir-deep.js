@@ -31,7 +31,14 @@ function stat(pathname) {
     });
 }
 
-async function readDirDeep(startPath: string) {
+// eslint-disable-next-line flowtype/require-exact-type
+type Options = {
+    relative?: boolean,
+};
+
+async function readDirDeep(startPath: string, options?: Options = {}) {
+    const { relative = true } = options;
+
     const fileList: string[] = [];
     const getFiles = async (dir) => {
         const files = await readDir(dir);
@@ -47,9 +54,12 @@ async function readDirDeep(startPath: string) {
                 return;
             }
 
-            const relativePath = path.relative(startPath, pathname);
+            const filePath =
+                relative === true
+                    ? path.relative(startPath, pathname)
+                    : pathname;
 
-            fileList.push(relativePath);
+            fileList.push(filePath);
         });
 
         await Promise.all(pending);
@@ -63,7 +73,9 @@ async function readDirDeep(startPath: string) {
     return sortedFileList;
 }
 
-function readDirDeepSync(startPath: string) {
+function readDirDeepSync(startPath: string, options?: Options = {}) {
+    const { relative = true } = options;
+
     const getFiles = (dir: string) => {
         const result = fs.readdirSync(dir).reduce((acc, file) => {
             const pathname = path.resolve(dir, file);
@@ -75,8 +87,12 @@ function readDirDeepSync(startPath: string) {
                 return [...acc, ...dirList];
             }
 
-            const relativePath = path.relative(startPath, pathname);
-            return [...acc, relativePath];
+            const filePath =
+                relative === true
+                    ? path.relative(startPath, pathname)
+                    : pathname;
+
+            return [...acc, filePath];
         }, []);
 
         return result;

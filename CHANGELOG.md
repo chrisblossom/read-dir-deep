@@ -9,4 +9,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+-   Add `relative` option
 -   Internal: replace async `for of` with `Promise.all(map)`

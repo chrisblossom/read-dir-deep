@@ -4,8 +4,8 @@ import path from 'path';
 import fs from 'fs';
 import TempSandbox from 'temp-sandbox';
 
-const readDirDeep = (startPath) => require('./read-dir-deep')(startPath);
-readDirDeep.sync = (startPath) => require('./read-dir-deep').sync(startPath);
+const readDirDeep = (...args) => require('./read-dir-deep')(...args);
+readDirDeep.sync = (...args) => require('./read-dir-deep').sync(...args);
 
 const sandbox = new TempSandbox();
 beforeEach(async () => {
@@ -18,6 +18,9 @@ afterAll(async () => {
 
 const normalizePaths = (paths) =>
     paths.map((pathname) => path.normalize(pathname));
+
+const fullPaths = (paths) =>
+    paths.map((pathname) => path.resolve(sandbox.dir, pathname));
 
 describe('gets all nested files', () => {
     beforeEach(async () => {
@@ -141,5 +144,34 @@ describe('throws error when not a directory', () => {
         } catch (error) {
             checkError(error);
         }
+    });
+});
+
+describe('options', () => {
+    describe('relative: false', () => {
+        beforeEach(async () => {
+            await Promise.all([
+                sandbox.createFile('a.js'),
+                sandbox.createFile('nested/1.js'),
+                sandbox.createFile('nested/0/0.js'),
+            ]);
+        });
+
+        const checkResult = (result) => {
+            expect(result).toEqual(
+                fullPaths(['a.js', 'nested/0/0.js', 'nested/1.js']),
+            );
+        };
+
+        test('async', async () => {
+            const result = await readDirDeep(sandbox.dir, { relative: false });
+            checkResult(result);
+        });
+
+        test('sync', () => {
+            const result = readDirDeep.sync(sandbox.dir, { relative: false });
+
+            checkResult(result);
+        });
     });
 });
