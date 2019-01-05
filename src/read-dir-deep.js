@@ -32,34 +32,35 @@ function stat(pathname) {
 }
 
 async function readDirDeep(startPath: string) {
-    const result = [];
-    const getFiles = async (dir: string) => {
+    const fileList: string[] = [];
+    const getFiles = async (dir) => {
         const files = await readDir(dir);
 
-        /* eslint-disable no-await-in-loop */
-        for (const file of files) {
+        const pending = files.map(async (file) => {
             const pathname = path.resolve(dir, file);
 
-            const isDirectory = (await stat(pathname)).isDirectory();
+            const fileStats = await stat(pathname);
+            const isDirectory = fileStats.isDirectory();
             if (isDirectory) {
                 await getFiles(pathname);
-            } else {
-                const relativePath = path.relative(startPath, pathname);
 
-                result.push(relativePath);
+                return;
             }
-        }
-        /* eslint-enable */
 
-        return result;
+            const relativePath = path.relative(startPath, pathname);
+
+            fileList.push(relativePath);
+        });
+
+        await Promise.all(pending);
     };
 
-    const fileList = await getFiles(startPath);
+    await getFiles(startPath);
 
-    // $FlowIssue
-    const fileListSorted = fileList.sort();
+    // eslint-disable-next-line flowtype/no-mutable-array
+    const sortedFileList: string[] = fileList.sort();
 
-    return fileListSorted;
+    return sortedFileList;
 }
 
 function readDirDeepSync(startPath: string) {
