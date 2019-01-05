@@ -48,12 +48,12 @@ describe('gets all nested files', () => {
                 'a.js',
                 'b.js',
                 'd.js',
-                'nested/0/0.js',
-                'nested/0/a.js',
-                'nested/0/b.js',
                 'nested/1.js',
                 'nested/a.js',
                 'nested/b.js',
+                'nested/0/0.js',
+                'nested/0/a.js',
+                'nested/0/b.js',
                 'nested/c/a.js',
                 'nested/c/b.js',
                 'nested/c/c.js',
@@ -159,7 +159,7 @@ describe('options', () => {
 
         const checkResult = (result) => {
             expect(result).toEqual(
-                fullPaths(['a.js', 'nested/0/0.js', 'nested/1.js']),
+                fullPaths(['a.js', 'nested/1.js', 'nested/0/0.js']),
             );
         };
 

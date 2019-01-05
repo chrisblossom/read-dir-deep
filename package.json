@@ -48,5 +48,8 @@
     "@backtrack/preset-node-module": "^0.4.0",
     "flow-bin": "^0.80.0",
     "temp-sandbox": "^1.0.5"
+  },
+  "dependencies": {
+    "path-sort2": "^1.0.0"
   }
 }

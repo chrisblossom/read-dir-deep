@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import pathSort from 'path-sort2';
 
 function readDir(pathname) {
     return new Promise((resolve, reject) => {
@@ -68,7 +69,7 @@ async function readDirDeep(startPath: string, options?: Options = {}) {
     await getFiles(startPath);
 
     // eslint-disable-next-line flowtype/no-mutable-array
-    const sortedFileList: string[] = fileList.sort();
+    const sortedFileList: string[] = pathSort(fileList);
 
     return sortedFileList;
 }
@@ -100,7 +101,7 @@ function readDirDeepSync(startPath: string, options?: Options = {}) {
 
     const fileList = getFiles(startPath);
 
-    const fileListSorted = fileList.sort();
+    const fileListSorted = pathSort(fileList);
 
     return fileListSorted;
 }
