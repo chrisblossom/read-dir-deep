@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.6] - 2019-01-05
+
 ### Changed
 
 -   Add `relative` option

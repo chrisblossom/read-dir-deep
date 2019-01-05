@@ -1,6 +1,6 @@
 {
   "name": "read-dir-deep",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Returns a recursive list of all files inside a directory",
   "keywords": [
     "directory",
