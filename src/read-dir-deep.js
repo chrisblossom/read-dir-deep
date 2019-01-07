@@ -1,111 +1,46 @@
 /* @flow */
 
-import fs from 'fs';
-import path from 'path';
+/* eslint-disable flowtype/require-exact-type,flowtype/no-mutable-array */
+
+import globby from 'globby';
 import pathSort from 'path-sort2';
 
-function readDir(pathname) {
-    return new Promise((resolve, reject) => {
-        fs.readdir(pathname, (error, files) => {
-            if (error) {
-                reject(error);
+type Options = { patterns?: string[] };
 
-                return;
-            }
-
-            resolve(files);
-        });
-    });
-}
-
-function stat(pathname) {
-    return new Promise((resolve, reject) => {
-        fs.stat(pathname, (error, stats) => {
-            if (error) {
-                reject(error);
-
-                return;
-            }
-
-            resolve(stats);
-        });
-    });
-}
-
-// eslint-disable-next-line flowtype/require-exact-type
-type Options = {
-    relative?: boolean,
+const defaultPatterns = ['.'];
+const defaultOptions = {
+    deep: true,
+    dot: true,
+    markDirectories: true,
 };
 
 async function readDirDeep(startPath: string, options?: Options = {}) {
-    const { relative = true } = options;
+    const { patterns = defaultPatterns, ...globbyOptions } = options;
 
-    const fileList: string[] = [];
-    const getFiles = async (dir) => {
-        const files = await readDir(dir);
+    const fileList = await globby(patterns, {
+        cwd: startPath,
+        ...defaultOptions,
+        ...globbyOptions,
+    });
 
-        const pending = files.map(async (file) => {
-            const pathname = path.resolve(dir, file);
+    const fileListSorted = pathSort(fileList, '/');
 
-            const fileStats = await stat(pathname);
-            const isDirectory = fileStats.isDirectory();
-            if (isDirectory) {
-                await getFiles(pathname);
-
-                return;
-            }
-
-            const filePath =
-                relative === true
-                    ? path.relative(startPath, pathname)
-                    : pathname;
-
-            fileList.push(filePath);
-        });
-
-        await Promise.all(pending);
-    };
-
-    await getFiles(startPath);
-
-    // eslint-disable-next-line flowtype/no-mutable-array
-    const sortedFileList: string[] = pathSort(fileList);
-
-    return sortedFileList;
+    return fileListSorted;
 }
 
 function readDirDeepSync(startPath: string, options?: Options = {}) {
-    const { relative = true } = options;
+    const { patterns = defaultPatterns, ...globbyOptions } = options;
 
-    const getFiles = (dir: string) => {
-        const result = fs.readdirSync(dir).reduce((acc, file) => {
-            const pathname = path.resolve(dir, file);
+    const fileList = globby.sync(patterns, {
+        cwd: startPath,
+        ...defaultOptions,
+        ...globbyOptions,
+    });
 
-            const isDirectory = fs.statSync(pathname).isDirectory();
-            if (isDirectory) {
-                const dirList = getFiles(pathname);
-
-                return [...acc, ...dirList];
-            }
-
-            const filePath =
-                relative === true
-                    ? path.relative(startPath, pathname)
-                    : pathname;
-
-            return [...acc, filePath];
-        }, []);
-
-        return result;
-    };
-
-    const fileList = getFiles(startPath);
-
-    const fileListSorted = pathSort(fileList);
+    const fileListSorted = pathSort(fileList, '/');
 
     return fileListSorted;
 }
 
 readDirDeep.sync = readDirDeepSync;
-
 module.exports = readDirDeep;

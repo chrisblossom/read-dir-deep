@@ -7,7 +7,7 @@
 
 ## About
 
-Returns a recursive list of all files inside a directory.
+Returns a sorted recursive list of all files inside a directory.
 
 ## Installation
 
@@ -26,12 +26,13 @@ const files = await readDirDeep(dir);
 // sync
 const files = readDirDeep.sync(dir);
 
-// files = [
-//    'a.js',
-//    'b.js',
-//    'nested/a.js',
-//    'nested-other/b/c.js',
-// ];
+console.log(files);
+// [
+//     'a/b/c.js',
+//     'a.js',
+//     'b/a.js',
+//     'b.js',
+// ]
 ```
 
 ## Options
@@ -41,6 +42,33 @@ const files = await readDirDeep(dir, {
     /**
      * Return full file paths
      */
-    relative: false,
+    absolute: true,
+
+    /**
+     * Custom file matching
+     *
+     * See [globby#patterns](https://github.com/sindresorhus/globby#patterns)
+     *
+     * default: ['.']
+     */
+    patterns: ['.', '!**/*.test.js'],
+
+    /**
+     * Exclude files/folders
+     *
+     * default: []
+     */
+    ignore: [
+        '**/.DS_Store',
+        '**/node_modules/**',
+        '**/.git/**',
+        '**/.vscode/**',
+        '**/.idea/**',
+    ],
+
+    /**
+     * See [Globby Options](https://github.com/sindresorhus/globby#options)
+     * for additional options
+     */
 });
 ```

@@ -1,16 +1,19 @@
 {
   "name": "read-dir-deep",
   "version": "2.0.0",
-  "description": "Returns a recursive list of all files inside a directory",
+  "description": "Returns a sorted recursive list of all files inside a directory",
   "keywords": [
     "directory",
+    "folder",
     "dir",
     "ls",
     "ll",
     "file",
     "list",
     "recursive",
-    "deep"
+    "deep",
+    "globby",
+    "glob"
   ],
   "license": "MIT",
   "repository": "chrisblossom/read-dir-deep",
@@ -47,9 +50,11 @@
     "@backtrack/core": "^0.1.23",
     "@backtrack/preset-node-module": "^0.4.2",
     "flow-bin": "^0.80.0",
+    "slash": "^2.0.0",
     "temp-sandbox": "^1.0.5"
   },
   "dependencies": {
+    "globby": "^8.0.1",
     "path-sort2": "^1.0.0"
   }
 }
