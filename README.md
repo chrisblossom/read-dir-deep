@@ -72,3 +72,8 @@ const files = await readDirDeep(dir, {
      */
 });
 ```
+
+## Thanks To / Related Projects
+
+-   [sindresorhus/globby](https://github.com/sindresorhus/globby)
+-   [hughsk/path-sort](https://github.com/hughsk/path-sort)
