@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.0.0] - 2019-01-07
+
 ### Changed
 
 -   Breaking: Use [globby](https://github.com/sindresorhus/globby)
