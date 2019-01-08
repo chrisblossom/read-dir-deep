@@ -39,7 +39,6 @@
     "lint": "backtrack lint",
     "lint.fix": "backtrack lint.fix",
     "prepublishOnly": "backtrack prepublishOnly",
-    "prepush": "backtrack prepush",
     "test": "backtrack test",
     "test.ci": "backtrack test.ci",
     "test.ci-pretest": "backtrack test.ci-pretest",
@@ -48,10 +47,10 @@
   },
   "devDependencies": {
     "@backtrack/core": "^0.1.23",
-    "@backtrack/preset-node-module": "^0.4.2",
+    "@backtrack/preset-node-module": "^0.5.2",
     "flow-bin": "^0.80.0",
     "slash": "^2.0.0",
-    "temp-sandbox": "^1.0.5"
+    "temp-sandbox": "^1.0.8"
   },
   "dependencies": {
     "globby": "^8.0.1",
