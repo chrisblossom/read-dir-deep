@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-    presets: [['@backtrack/node-module', { flow: true }]],
+    presets: [['@backtrack/node-module', { typescript: true }]],
 };

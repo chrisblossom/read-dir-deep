@@ -1,12 +1,8 @@
-/* @flow */
-
-/* eslint-disable flowtype/require-exact-type,flowtype/no-mutable-array */
-
 import fs from 'fs';
 import globby from 'globby';
 import pathSort from 'path-sort2';
 
-function readDir(pathname) {
+function readDir(pathname: string) {
     return new Promise((resolve, reject) => {
         fs.readdir(pathname, (error, files) => {
             if (error) {
@@ -20,7 +16,7 @@ function readDir(pathname) {
     });
 }
 
-function stat(pathname) {
+function stat(pathname: string) {
     return new Promise((resolve, reject) => {
         fs.stat(pathname, (error, stats) => {
             if (error) {
@@ -43,10 +39,11 @@ const defaultOptions = {
     markDirectories: true,
 };
 
-async function readDirDeep(startPath: string, options?: Options = {}) {
+async function readDirDeep(startPath: string, options: Options = {}) {
     const { patterns = defaultPatterns, ...globbyOptions } = options;
 
     const fileStats = await stat(startPath);
+    // @ts-ignore
     const isDirectory = fileStats.isDirectory();
     if (isDirectory === false) {
         // will throw ENOTDIR
@@ -64,7 +61,7 @@ async function readDirDeep(startPath: string, options?: Options = {}) {
     return fileListSorted;
 }
 
-function readDirDeepSync(startPath: string, options?: Options = {}) {
+function readDirDeepSync(startPath: string, options: Options = {}) {
     const { patterns = defaultPatterns, ...globbyOptions } = options;
 
     const isDirectory = fs.statSync(startPath).isDirectory();
@@ -85,4 +82,5 @@ function readDirDeepSync(startPath: string, options?: Options = {}) {
 }
 
 readDirDeep.sync = readDirDeepSync;
+
 export default readDirDeep;

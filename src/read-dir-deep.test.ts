@@ -1,12 +1,10 @@
-/* @flow */
-
 import path from 'path';
 import fs from 'fs';
 import slash from 'slash';
 import TempSandbox from 'temp-sandbox';
 
-const readDirDeep = (...args) => require('./read-dir-deep')(...args);
-readDirDeep.sync = (...args) => require('./read-dir-deep').sync(...args);
+const readDirDeep = (...args: any) => require('./read-dir-deep')(...args);
+readDirDeep.sync = (...args: any) => require('./read-dir-deep').sync(...args);
 
 const sandbox = new TempSandbox();
 beforeEach(async () => {
@@ -19,7 +17,7 @@ afterAll(async () => {
 
 describe('gets all nested files', () => {
     beforeEach(async () => {
-        await Promise.all([
+        await Promise.all<string | void>([
             sandbox.createFile('.a.js'),
             sandbox.createFile('a.js'),
             sandbox.createFile('a b.js'),
@@ -41,7 +39,7 @@ describe('gets all nested files', () => {
         ]);
     });
 
-    const checkResult = (result) => {
+    const checkResult = (result: string[]) => {
         expect(result).toEqual([
             '.a.js',
             '.b.js',
@@ -74,7 +72,7 @@ describe('gets all nested files', () => {
 });
 
 describe('handles empty initial directory', () => {
-    const checkResult = (result) => {
+    const checkResult = (result: string[]) => {
         expect(result).toEqual([]);
     };
 
@@ -97,7 +95,7 @@ describe('handles empty nested directory', () => {
         await sandbox.createDir('nested');
     });
 
-    const checkResult = (result) => {
+    const checkResult = (result: string[]) => {
         const dirExists = fs.statSync(nested).isDirectory();
 
         expect(dirExists).toEqual(true);
@@ -124,7 +122,7 @@ describe('throws error when not a directory', () => {
         await sandbox.createFile('a.js');
     });
 
-    const checkError = (error) => {
+    const checkError = (error: any) => {
         expect(error.code).toEqual('ENOTDIR');
     };
 
@@ -157,7 +155,7 @@ describe('options', () => {
             ]);
         });
 
-        const checkResult = (result) => {
+        const checkResult = (result: string[]) => {
             expect(result).toEqual(
                 ['a.js', 'nested/1.js', 'nested/0/0.js'].map((pathname) =>
                     slash(path.resolve(sandbox.dir, pathname)),
@@ -193,7 +191,7 @@ describe('options', () => {
             ]);
         });
 
-        const checkResult = (result) => {
+        const checkResult = (result: string[]) => {
             expect(result).toEqual([
                 'c.js',
                 'nested/1.js',
@@ -237,7 +235,7 @@ describe('options', () => {
             ]);
         });
 
-        const checkResult = (result) => {
+        const checkResult = (result: string[]) => {
             expect(result).toEqual(['a.js', 'nested/0/0.js']);
         };
 
@@ -273,7 +271,7 @@ describe('options', () => {
             ]);
         });
 
-        const checkResult = (result) => {
+        const checkResult = (result: string[]) => {
             expect(result).toEqual(['a.js', 'nested/0/0.js']);
         };
 

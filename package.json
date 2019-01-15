@@ -24,15 +24,13 @@
     "npm": ">=3.10.10"
   },
   "files": [
-    "dist/",
-    "flow-typed/"
+    "dist/"
   ],
   "main": "dist/read-dir-deep.js",
   "scripts": {
     "build": "backtrack build --production",
     "clean": "backtrack clean",
     "dev": "backtrack dev --development",
-    "flow": "backtrack flow",
     "format": "backtrack format",
     "git-pre-commit": "backtrack git-pre-commit",
     "git-pre-push": "backtrack git-pre-push",
@@ -43,14 +41,19 @@
     "test.ci": "backtrack test.ci",
     "test.ci-pretest": "backtrack test.ci-pretest",
     "test.update": "jest --updateSnapshot",
-    "test.watch": "jest --watch"
+    "test.watch": "jest --watch",
+    "typescript": "backtrack typescript"
   },
   "devDependencies": {
     "@backtrack/core": "^0.1.23",
     "@backtrack/preset-node-module": "^0.5.2",
-    "flow-bin": "^0.80.0",
+    "@types/globby": "^8.0.0",
+    "@types/jest": "^23.3.12",
+    "@types/node": "^10.12.18",
+    "@types/slash": "^2.0.0",
     "slash": "^2.0.0",
-    "temp-sandbox": "^1.0.8"
+    "temp-sandbox": "^1.0.8",
+    "typescript": "^3.2.2"
   },
   "dependencies": {
     "globby": "^9.0.0",
