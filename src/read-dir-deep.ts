@@ -10,7 +10,10 @@ const defaultOptions = {
     markDirectories: true,
 };
 
-async function readDirDeep(startPath: string, options: Options = {}) {
+async function readDirDeep(
+    startPath: string,
+    options: Options = {},
+): Promise<string[]> {
     const { patterns = defaultPatterns, ...globbyOptions } = options;
 
     const fileList = await globby(patterns, {
@@ -24,7 +27,7 @@ async function readDirDeep(startPath: string, options: Options = {}) {
     return fileListSorted;
 }
 
-function readDirDeepSync(startPath: string, options: Options = {}) {
+function readDirDeepSync(startPath: string, options: Options = {}): string[] {
     const { patterns = defaultPatterns, ...globbyOptions } = options;
 
     const fileList = globby.sync(patterns, {
