@@ -85,4 +85,4 @@ function readDirDeepSync(startPath: string, options?: Options = {}) {
 }
 
 readDirDeep.sync = readDirDeepSync;
-module.exports = readDirDeep;
+export default readDirDeep;
