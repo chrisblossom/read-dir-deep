@@ -53,7 +53,7 @@
     "temp-sandbox": "^1.0.8"
   },
   "dependencies": {
-    "globby": "^8.0.1",
+    "globby": "^9.0.0",
     "path-sort2": "^1.0.0"
   }
 }
