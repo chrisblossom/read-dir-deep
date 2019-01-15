@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.0.0] - 2019-01-15
+
 -   Migrate to Typescript
 -   Breaking: Update [globby](https://github.com/sindresorhus/globby)
 
