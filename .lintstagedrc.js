@@ -14,10 +14,14 @@ const Backtrack = require('@backtrack/core');
 const { configManager } = new Backtrack();
 
 const lintStaged = {
-    '*.{js,mjs,jsx,ts,tsx,json,scss,less,css,md,yml,yaml}': [
+    '*.{js,jsx,ts,tsx,mjs,json,scss,less,css,md,yml,yaml}': [
         'prettier --write',
         'git add',
     ],
+    globOptions: {
+        matchBase: true,
+        dot: true,
+    },
 };
 
 module.exports = configManager({

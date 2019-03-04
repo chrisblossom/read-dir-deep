@@ -122,26 +122,20 @@ describe('throws error when not a directory', () => {
         await sandbox.createFile('a.js');
     });
 
-    const checkError = (error: any) => {
-        expect(error.code).toEqual('ENOTDIR');
-    };
-
     test('async', async () => {
-        expect.hasAssertions();
-        try {
-            await readDirDeep(pathname);
-        } catch (error) {
-            checkError(error);
-        }
+        await expect(
+            readDirDeep(pathname),
+        ).rejects.toThrowErrorMatchingInlineSnapshot(
+            `"The \`cwd\` option must be a path to a directory"`,
+        );
     });
 
     test('sync', () => {
-        expect.hasAssertions();
-        try {
-            readDirDeep.sync(pathname);
-        } catch (error) {
-            checkError(error);
-        }
+        expect(() =>
+            readDirDeep.sync(pathname),
+        ).toThrowErrorMatchingInlineSnapshot(
+            `"The \`cwd\` option must be a path to a directory"`,
+        );
     });
 });
 

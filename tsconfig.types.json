@@ -1,3 +1,11 @@
+/**
+ * This file is managed by backtrack
+ *
+ * source: @backtrack/preset-node
+ *
+ * DO NOT MODIFY
+ */
+
 {
     "extends": "./tsconfig",
     "compilerOptions": {

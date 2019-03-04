@@ -1,4 +1,4 @@
-import globby from 'globby';
+import globby, { sync as globbySync } from 'globby';
 import pathSort from 'path-sort2';
 
 type Options = { patterns?: string[] };
@@ -30,7 +30,7 @@ async function readDirDeep(
 function readDirDeepSync(startPath: string, options: Options = {}): string[] {
     const { patterns = defaultPatterns, ...globbyOptions } = options;
 
-    const fileList = globby.sync(patterns, {
+    const fileList = globbySync(patterns, {
         cwd: startPath,
         ...defaultOptions,
         ...globbyOptions,

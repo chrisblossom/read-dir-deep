@@ -1,7 +1,7 @@
 /**
  * This file is managed by backtrack
  *
- * source: @backtrack/preset-node-module
+ * source: @backtrack/preset-node
  * namespace: babel
  *
  * DO NOT MODIFY
@@ -10,13 +10,12 @@
 'use strict';
 
 const Backtrack = require('@backtrack/core');
-const nodeVersion = require('@backtrack/preset-node-module/lib/utils/node-version');
-const getPackageId = require('@backtrack/preset-node-module/lib/utils/get-package-id');
+const nodeVersion = require('@backtrack/preset-node/lib/utils/node-version');
+const packageId = require('@backtrack/preset-node/lib/utils/package-id');
 
 const { pkg, configManager } = new Backtrack();
 
-const packageId = getPackageId();
-const backtrackId = '@backtrack/preset-node-module';
+const backtrackId = '@backtrack/preset-node';
 
 const babel = {
     presets: [
@@ -26,7 +25,6 @@ const babel = {
                 targets: {
                     node: nodeVersion,
                 },
-                useBuiltIns: 'entry',
             },
         ],
     ],

@@ -6,33 +6,32 @@
             "src"
         ],
         "files": {
-            ".babelrc.js": "0d67470127273083075e12034e65050fac6ee146fbabd903300b011a3ad7d6ef",
+            ".babelrc.js": "cfbdbe56c75e6414ebe29840e9b02c552eb15eb076828effcada7c7421380c75",
             ".circleci/config.yml": "f8afa0de22d1ce5ee659b86993cf898e85b383599dab0f06ef052d1f4510ef37",
-            ".editorconfig": "65c8c6dd2b55cd63f7a55d2ed77bb1344a345ed651c5b0a1cb689fa95753e63d",
+            ".editorconfig": "ec4ed6b0bd85bf29162eccef4420c8b03bd330e8abd84d7a14b2cae3079f1fd9",
             ".eslintignore": "df678e7a458aba93c115564cfd4a701bdf4397e943de8745d37f2798c1dc5c11",
             ".eslintrc.js": "0de8c62f28870b2afeb3eb58a5a9a106a96c9181aa9478f71760bb155bb4a205",
-            ".gitignore": "715c4f869d50d4e11254a97441df027e6cabd50612d10e844e5efba4078f484f",
+            ".gitignore": "8791c419e79de53e5c2eefa59ab16b52b5413bd08da46be94e9e6cc3153a17a0",
             ".huskyrc.js": "f7b6f2abb505e7b45fb028edb1a032b9fb7c997e4d563fdd0567beb582f8da76",
-            ".lintstagedrc.js": "c8dd8df94d9c8de4503bc1ab4b4ea12c7450d76ebbd50c9b4c3c7975609e28da",
-            ".npmrc": "f92bfc9e4d622a5c53c3fcd1b61206420f8dc666db99e57560c33ad2fdc80a47",
+            ".lintstagedrc.js": "1c281c60951d50bbf67363f45782788011eb151aa7027fb1148a68aa42f064b4",
+            ".npmrc": "f535d8452d57a9d969bc54c2eaa831f3e20ccb5c3dbeeabc6f613d27a4b5a28a",
             ".prettierignore": "df678e7a458aba93c115564cfd4a701bdf4397e943de8745d37f2798c1dc5c11",
             ".prettierrc.js": "37f4f9d099f0dc6e9d2018d8a0c98cc8fc21245232506d0cd57135f84858a737",
-            ".yarnrc": "e4bdd4d0bcb6dd15e5585dc6fa2c90780abaf4904305afb12d9af02000e070f3",
+            ".yarnrc": "feed5a1b1413c2d27507ed09e7d1c21fb40e0f8aca947c0620793b7e187e8ba4",
             "CHANGELOG.md": "ignoreUpdates",
             "README.md": "ignoreUpdates",
             "appveyor.yml": "251406424b8cb49b1a8858ef7eb521ae57856964625daed85b591692e8f98e15",
             "global.d.ts": "ignoreUpdates",
-            "jest.config.js": "89b921f7f379662d979221ac8124f85a5c2443a66f5d6922babf18e67b0f5727",
+            "jest.config.js": "e12a7bf22599c80204f73e366b427a8296f16e8fdd1fda0f09a508935258f870",
             "src/read-dir-deep.ts": "ignoreUpdates",
-            "tsconfig.declaration.json": "f29b914b471d9a5bbb231fa43c87235a8f44271edd11436f6ccec779e9e55957",
-            "tsconfig.json": "afecd787ab1919b8d4f0f9873f1f3b2ef989b83fc7cc7c3348cefb0a219cd104",
-            "wallaby.config.js": "42d67f79ccf8a0d7ab342ad9698e59f29db895a1cc491bb55d9fafccdadbb24c"
+            "tsconfig.json": "82c59a9bda4362ae308e013465028a04e97edb9ff0ed6f2c500c69effd6ae12d",
+            "tsconfig.types.json": "5fcb969aef44ee0d4c94c53572433f558d49cc1b4b05257fc6a0765cc1afa737",
+            "wallaby.config.js": "2656c547b42344e044e4a04d211059882aa4ab616f46051bbf994a018be2b9ec"
         }
     },
     "packageJson": {
         "engines": {
-            "node": ">=6.9.0",
-            "npm": ">=3.10.10"
+            "node": ">=6.9.0"
         },
         "files": [
             "dist/"
@@ -51,9 +50,10 @@
             "test": "backtrack test",
             "test.ci": "backtrack test.ci",
             "test.ci-pretest": "backtrack test.ci-pretest",
-            "test.update": "jest --updateSnapshot",
+            "test.update": "jest --update-snapshot",
             "test.watch": "jest --watch",
             "typescript": "backtrack typescript"
-        }
+        },
+        "types": "dist/read-dir-deep.d.ts"
     }
 }
