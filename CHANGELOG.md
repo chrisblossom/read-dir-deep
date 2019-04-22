@@ -7,11 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+-   (Typescript) Options now correctly extends Globby's Options
+
 ## [4.0.2] - 2019-01-15
+
+### Fixed
 
 -   Fix Typescript return type
 
 ## [4.0.1] - 2019-01-15
+
+### Fixed
 
 -   Change default pattern to `**`. Correctly throw `ENOTDIR` fix
 

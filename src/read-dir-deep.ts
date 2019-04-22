@@ -1,10 +1,12 @@
-import globby, { sync as globbySync } from 'globby';
+import globby, { sync as globbySync, GlobbyOptions } from 'globby';
 import pathSort from 'path-sort2';
 
-type Options = { patterns?: string[] };
+interface Options extends GlobbyOptions {
+    patterns?: string[];
+}
 
 const defaultPatterns = ['**'];
-const defaultOptions = {
+const defaultOptions: Options = {
     deep: true,
     dot: true,
     markDirectories: true,
