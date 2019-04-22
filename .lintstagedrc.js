@@ -18,10 +18,6 @@ const lintStaged = {
         'prettier --write',
         'git add',
     ],
-    globOptions: {
-        matchBase: true,
-        dot: true,
-    },
 };
 
 module.exports = configManager({
