@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.0.4] - 2019-04-22
+
 ### Fixed
 
 -   (Typescript) Options now correctly extends Globby's Options
