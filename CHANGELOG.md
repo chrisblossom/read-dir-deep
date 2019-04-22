@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+-   (breaking): remove default export and add named exports: `readDirDeep`, `readDirDeepSync`
+-   (breaking): replace `readDirDeep.sync` with named export `readDirDeepSync`
+-   Update packages
+
 ## [4.0.4] - 2019-04-22
 
 ### Fixed

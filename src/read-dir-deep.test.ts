@@ -3,8 +3,10 @@ import fs from 'fs';
 import slash from 'slash';
 import TempSandbox from 'temp-sandbox';
 
-const readDirDeep = (...args: any) => require('./read-dir-deep')(...args);
-readDirDeep.sync = (...args: any) => require('./read-dir-deep').sync(...args);
+const readDirDeep = (...args: any) =>
+    require('./read-dir-deep').readDirDeep(...args);
+const readDirDeepSync = (...args: any) =>
+    require('./read-dir-deep').readDirDeepSync(...args);
 
 const sandbox = new TempSandbox();
 beforeEach(async () => {
@@ -65,7 +67,7 @@ describe('gets all nested files', () => {
     });
 
     test('sync', () => {
-        const result = readDirDeep.sync(sandbox.dir);
+        const result = readDirDeepSync(sandbox.dir);
 
         checkResult(result);
     });
@@ -82,7 +84,7 @@ describe('handles empty initial directory', () => {
     });
 
     test('sync', () => {
-        const result = readDirDeep.sync(sandbox.dir);
+        const result = readDirDeepSync(sandbox.dir);
 
         checkResult(result);
     });
@@ -109,7 +111,7 @@ describe('handles empty nested directory', () => {
     });
 
     test('sync', () => {
-        const result = readDirDeep.sync(sandbox.dir);
+        const result = readDirDeepSync(sandbox.dir);
 
         checkResult(result);
     });
@@ -132,7 +134,7 @@ describe('throws error when not a directory', () => {
 
     test('sync', () => {
         expect(() =>
-            readDirDeep.sync(pathname),
+            readDirDeepSync(pathname),
         ).toThrowErrorMatchingInlineSnapshot(
             `"The \`cwd\` option must be a path to a directory"`,
         );
@@ -165,7 +167,7 @@ describe('options', () => {
         });
 
         test('sync', () => {
-            const result = readDirDeep.sync(sandbox.dir, options);
+            const result = readDirDeepSync(sandbox.dir, options);
 
             checkResult(result);
         });
@@ -205,7 +207,7 @@ describe('options', () => {
         });
 
         test('sync', () => {
-            const result = readDirDeep.sync(sandbox.dir, options);
+            const result = readDirDeepSync(sandbox.dir, options);
 
             checkResult(result);
         });
@@ -249,7 +251,7 @@ describe('options', () => {
         });
 
         test('sync', () => {
-            const result = readDirDeep.sync(sandbox.dir, options);
+            const result = readDirDeepSync(sandbox.dir, options);
 
             checkResult(result);
         });
@@ -277,7 +279,7 @@ describe('options', () => {
         });
 
         test('sync', () => {
-            const result = readDirDeep.sync(sandbox.dir, options);
+            const result = readDirDeepSync(sandbox.dir, options);
 
             checkResult(result);
         });

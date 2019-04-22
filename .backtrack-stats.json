@@ -6,7 +6,7 @@
             "src"
         ],
         "files": {
-            ".babelrc.js": "cfbdbe56c75e6414ebe29840e9b02c552eb15eb076828effcada7c7421380c75",
+            ".babelrc.js": "5bbb6724d7116ee2892e3ed5ea965e497c7ff9c148b3f19d5fd0aabb4a3aac76",
             ".circleci/config.yml": "f8afa0de22d1ce5ee659b86993cf898e85b383599dab0f06ef052d1f4510ef37",
             ".editorconfig": "ec4ed6b0bd85bf29162eccef4420c8b03bd330e8abd84d7a14b2cae3079f1fd9",
             ".eslintignore": "df678e7a458aba93c115564cfd4a701bdf4397e943de8745d37f2798c1dc5c11",

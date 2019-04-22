@@ -16,7 +16,7 @@ Returns a sorted recursive list of all files inside a directory.
 ## Usage
 
 ```js
-const readDirDeep = require('read-dir-deep');
+const { readDirDeep, readDirDeepSync } = require('read-dir-deep');
 
 const dir = './fake/dir';
 
@@ -24,7 +24,7 @@ const dir = './fake/dir';
 const files = await readDirDeep(dir);
 
 // sync
-const files = readDirDeep.sync(dir);
+const files = readDirDeepSync(dir);
 
 console.log(files);
 // [

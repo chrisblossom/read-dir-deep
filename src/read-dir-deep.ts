@@ -43,6 +43,4 @@ function readDirDeepSync(startPath: string, options: Options = {}): string[] {
     return fileListSorted;
 }
 
-readDirDeep.sync = readDirDeepSync;
-
-export default readDirDeep;
+export { readDirDeep, readDirDeepSync };
