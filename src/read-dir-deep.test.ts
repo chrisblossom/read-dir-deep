@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import slash from 'slash';
-import TempSandbox from 'temp-sandbox';
+import { TempSandbox } from 'temp-sandbox';
 
 const readDirDeep = (...args: any) =>
     require('./read-dir-deep').readDirDeep(...args);

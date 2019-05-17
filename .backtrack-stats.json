@@ -6,32 +6,32 @@
             "src"
         ],
         "files": {
-            ".babelrc.js": "5bbb6724d7116ee2892e3ed5ea965e497c7ff9c148b3f19d5fd0aabb4a3aac76",
-            ".circleci/config.yml": "f8afa0de22d1ce5ee659b86993cf898e85b383599dab0f06ef052d1f4510ef37",
+            ".babelrc.js": "46ec57ee7ace7a0f86672ab17e78a9b89b288971d0200abd50cfa78d229d9749",
+            ".circleci/config.yml": "ed700b1e1ed715aaa370a41a40f8236df1886fa35913c644e8cc82580997e327",
             ".editorconfig": "ec4ed6b0bd85bf29162eccef4420c8b03bd330e8abd84d7a14b2cae3079f1fd9",
             ".eslintignore": "df678e7a458aba93c115564cfd4a701bdf4397e943de8745d37f2798c1dc5c11",
-            ".eslintrc.js": "0de8c62f28870b2afeb3eb58a5a9a106a96c9181aa9478f71760bb155bb4a205",
+            ".eslintrc.js": "3aa22828e051343c67e77b871d094ad536208e8cce15fc270abf97444c68fef9",
             ".gitignore": "8791c419e79de53e5c2eefa59ab16b52b5413bd08da46be94e9e6cc3153a17a0",
-            ".huskyrc.js": "f7b6f2abb505e7b45fb028edb1a032b9fb7c997e4d563fdd0567beb582f8da76",
-            ".lintstagedrc.js": "a1d49f8d7d4c67c356cc9fbb939df7484016908ed4777300c3fbf355b47921d9",
+            ".huskyrc.js": "d41c387b0d3f16730829f444ef7bc0665cc52e92847c548c5166ebb7597bc69a",
+            ".lintstagedrc.js": "5398a6883c9332018fa32fdac8989989eef1eca27c0e2d92ccf35bb13381e7e7",
             ".npmrc": "f535d8452d57a9d969bc54c2eaa831f3e20ccb5c3dbeeabc6f613d27a4b5a28a",
             ".prettierignore": "df678e7a458aba93c115564cfd4a701bdf4397e943de8745d37f2798c1dc5c11",
-            ".prettierrc.js": "37f4f9d099f0dc6e9d2018d8a0c98cc8fc21245232506d0cd57135f84858a737",
+            ".prettierrc.js": "f76ed92bea30dd6cb22675cedc0044614a9220be9b74859b5750a54ef4745a99",
             ".yarnrc": "feed5a1b1413c2d27507ed09e7d1c21fb40e0f8aca947c0620793b7e187e8ba4",
             "CHANGELOG.md": "ignoreUpdates",
             "README.md": "ignoreUpdates",
-            "appveyor.yml": "251406424b8cb49b1a8858ef7eb521ae57856964625daed85b591692e8f98e15",
+            "appveyor.yml": "5dcc891d04c8131f9a5782771c5fecd04af5a6cc6c22f4090a63b3b4583bafaa",
             "global.d.ts": "ignoreUpdates",
-            "jest.config.js": "e12a7bf22599c80204f73e366b427a8296f16e8fdd1fda0f09a508935258f870",
+            "jest.config.js": "996d179962a5518ff433880e9d7586c4d960c66112aa28698801d73347af4d00",
             "src/read-dir-deep.ts": "ignoreUpdates",
             "tsconfig.json": "82c59a9bda4362ae308e013465028a04e97edb9ff0ed6f2c500c69effd6ae12d",
             "tsconfig.types.json": "5fcb969aef44ee0d4c94c53572433f558d49cc1b4b05257fc6a0765cc1afa737",
-            "wallaby.config.js": "2656c547b42344e044e4a04d211059882aa4ab616f46051bbf994a018be2b9ec"
+            "wallaby.config.js": "3968a28638500fa170681791a468b61a051969f7c202fe8f30823a22779a55ac"
         }
     },
     "packageJson": {
         "engines": {
-            "node": ">=6.9.0"
+            "node": ">=8.9.0"
         },
         "files": [
             "dist/"

@@ -7,12 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+-   Breaking: Remove node 6 support
+
 ## [5.0.0] - 2019-04-22
 
 ### Changed
 
--   (breaking): remove default export and add named exports: `readDirDeep`, `readDirDeepSync`
--   (breaking): replace `readDirDeep.sync` with named export `readDirDeepSync`
+-   Breaking: remove default export and add named exports: `readDirDeep`, `readDirDeepSync`
+-   Breaking: replace `readDirDeep.sync` with named export `readDirDeepSync`
 -   Update packages
 
 ## [4.0.4] - 2019-04-22
