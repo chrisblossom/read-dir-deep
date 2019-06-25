@@ -2,10 +2,16 @@ import path from 'path';
 import fs from 'fs';
 import slash from 'slash';
 import { TempSandbox } from 'temp-sandbox';
+import {
+    readDirDeep as readDirDeepActual,
+    readDirDeepSync as readDirDeepSyncActual,
+} from './read-dir-deep';
 
-const readDirDeep = (...args: any) =>
+const readDirDeep: typeof readDirDeepActual = async (...args) =>
     require('./read-dir-deep').readDirDeep(...args);
-const readDirDeepSync = (...args: any) =>
+
+// eslint-disable-next-line @typescript-eslint/promise-function-async
+const readDirDeepSync: typeof readDirDeepSyncActual = (...args) =>
     require('./read-dir-deep').readDirDeepSync(...args);
 
 const sandbox = new TempSandbox();

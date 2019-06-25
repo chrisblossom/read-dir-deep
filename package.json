@@ -16,6 +16,7 @@
     "glob"
   ],
   "license": "MIT",
+  "private": false,
   "repository": "chrisblossom/read-dir-deep",
   "homepage": "https://github.com/chrisblossom/read-dir-deep",
   "author": "Chris Blossom",
@@ -37,6 +38,7 @@
     "lint": "backtrack lint",
     "lint.fix": "backtrack lint.fix",
     "prepublishOnly": "backtrack prepublishOnly",
+    "release": "backtrack release",
     "test": "backtrack test",
     "test.ci": "backtrack test.ci",
     "test.ci-pretest": "backtrack test.ci-pretest",
@@ -45,13 +47,13 @@
     "typescript": "backtrack typescript"
   },
   "devDependencies": {
-    "@backtrack/core": "^0.2.0",
-    "@backtrack/preset-node": "^0.4.3",
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.2",
+    "@backtrack/core": "^0.2.1",
+    "@backtrack/preset-node": "^0.5.1",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.0.10",
     "slash": "^3.0.0",
-    "temp-sandbox": "^2.0.0",
-    "typescript": "^3.4.5"
+    "temp-sandbox": "^3.0.0",
+    "typescript": "^3.5.2"
   },
   "dependencies": {
     "globby": "^9.2.0",
