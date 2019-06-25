@@ -1,7 +1,7 @@
 import globby, { sync as globbySync, GlobbyOptions } from 'globby';
 import pathSort from 'path-sort2';
 
-interface Options extends GlobbyOptions {
+export interface Options extends GlobbyOptions {
     patterns?: string[];
 }
 
