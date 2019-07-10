@@ -1,6 +1,7 @@
 import path from 'path';
 import isPathCwd from 'is-path-cwd';
 import isPathInCwd from 'is-path-in-cwd';
+import slash from 'slash';
 import { validateOptions } from './validate-args';
 import { Options } from './read-dir-deep';
 
@@ -43,7 +44,7 @@ function parseArgs(rootDir: string, options: Options) {
 	// eslint-disable-next-line prefer-const
 	let { cwd, absolute, patterns = defaultPatterns, ...globbyOpts } = options;
 
-	const parsedRootDir = path.resolve(rootDir);
+	let parsedRootDir = path.resolve(rootDir);
 
 	const processCwd = path.resolve(process.cwd());
 	const rootDirIsInsideProcessCwd = isInsideProcessCwd(parsedRootDir);
@@ -57,6 +58,9 @@ function parseArgs(rootDir: string, options: Options) {
 		// default to process.cwd when inside cwd
 		cwd = rootDirIsInsideProcessCwd === true ? processCwd : parsedRootDir;
 	}
+
+	cwd = slash(cwd);
+	parsedRootDir = slash(parsedRootDir);
 
 	const globbyOptions = {
 		...defaultOptions,

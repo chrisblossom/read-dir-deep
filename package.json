@@ -51,7 +51,6 @@
     "@backtrack/preset-node": "^0.6.1",
     "@types/jest": "^24.0.15",
     "@types/node": "^12.6.2",
-    "slash": "^3.0.0",
     "temp-sandbox": "^3.0.0",
     "typescript": "^3.5.3"
   },
@@ -59,6 +58,7 @@
     "globby": "^10.0.1",
     "is-path-cwd": "^2.2.0",
     "is-path-in-cwd": "^3.0.0",
-    "path-sort2": "^1.0.0"
+    "path-sort2": "^1.0.0",
+    "slash": "^3.0.0"
   }
 }

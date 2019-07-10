@@ -1,4 +1,5 @@
 import path from 'path';
+import slash from 'slash';
 import pathSort from 'path-sort2';
 
 interface ParseFilesParameters {
@@ -20,7 +21,11 @@ function parseFiles({
 		const relativeBaseDir = path.relative(cwd, rootDir);
 
 		normalizedFiles = files.map((file): string => {
-			const baseAdded = path.join(relativeBaseDir, file);
+			let baseAdded = path.join(relativeBaseDir, file);
+
+			// always return forward slashes like globby does
+			baseAdded = slash(baseAdded);
+
 			return baseAdded;
 		});
 	}
