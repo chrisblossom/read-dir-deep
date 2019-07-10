@@ -7,7 +7,7 @@ export interface Options extends GlobbyOptions {
 
 const defaultPatterns = ['**'];
 const defaultOptions: Options = {
-	deep: true,
+	deep: Infinity,
 	dot: true,
 	markDirectories: true,
 };

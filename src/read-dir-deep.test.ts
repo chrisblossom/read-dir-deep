@@ -10,7 +10,6 @@ import {
 const readDirDeep: typeof readDirDeepActual = async (...args) =>
 	require('./read-dir-deep').readDirDeep(...args);
 
-// eslint-disable-next-line @typescript-eslint/promise-function-async
 const readDirDeepSync: typeof readDirDeepSyncActual = (...args) =>
 	require('./read-dir-deep').readDirDeepSync(...args);
 
