@@ -43,7 +43,7 @@ const files = await readDirDeep(rootDir, {
 	/**
 	 * Return files relative to this directory
 	 *
-	 * defaults: rootDir
+	 * defaults:
 	 *    inside process.cwd(): process.cwd()
 	 *    outside process.cwd(): rootDir
 	 */
@@ -90,13 +90,10 @@ const files = await readDirDeep(rootDir, {
 	 * default: true
 	 */
 	gitignore: true,
-
-	/**
-	 * See [Globby Options](https://github.com/sindresorhus/globby#options)
-	 * for additional options
-	 */
 });
 ```
+
+See [Globby Options](https://github.com/sindresorhus/globby#options) for additional options
 
 ## Thanks To / Related Projects
 
