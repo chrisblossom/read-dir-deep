@@ -40,6 +40,13 @@ console.log(files);
 ```js
 const files = await readDirDeep(dir, {
 	/**
+	 * Return files relative to this directory
+	 *
+	 * default: dir
+	 */
+	cwd: process.cwd(),
+
+	/**
 	 * Return full file paths
 	 */
 	absolute: true,
