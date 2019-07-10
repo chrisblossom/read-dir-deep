@@ -21,3 +21,8 @@ package-lock.json
 __sandbox__
 .backtrack-stats.json
 wallaby.config.js
+tsconfig.*
+.np-config.js
+jest.config.js
+.babelrc.js
+*-backup-*

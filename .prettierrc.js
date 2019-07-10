@@ -14,14 +14,15 @@ const { Backtrack } = require('@backtrack/core');
 const { configManager } = new Backtrack();
 
 const prettier = {
-    semi: true,
-    tabWidth: 4,
-    singleQuote: true,
-    trailingComma: 'all',
-    arrowParens: 'always',
+	semi: true,
+	tabWidth: 4,
+	useTabs: true,
+	singleQuote: true,
+	trailingComma: 'all',
+	arrowParens: 'always',
 };
 
 module.exports = configManager({
-    namespace: 'prettier',
-    config: prettier,
+	namespace: 'prettier',
+	config: prettier,
 });

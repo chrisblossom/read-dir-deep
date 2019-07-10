@@ -39,37 +39,37 @@ console.log(files);
 
 ```js
 const files = await readDirDeep(dir, {
-    /**
-     * Return full file paths
-     */
-    absolute: true,
+	/**
+	 * Return full file paths
+	 */
+	absolute: true,
 
-    /**
-     * Custom file matching
-     *
-     * See [globby#patterns](https://github.com/sindresorhus/globby#patterns)
-     *
-     * default: ['.']
-     */
-    patterns: ['.', '!**/*.test.js'],
+	/**
+	 * Custom file matching
+	 *
+	 * See [globby#patterns](https://github.com/sindresorhus/globby#patterns)
+	 *
+	 * default: ['.']
+	 */
+	patterns: ['.', '!**/*.test.js'],
 
-    /**
-     * Exclude files/folders
-     *
-     * default: []
-     */
-    ignore: [
-        '**/.DS_Store',
-        '**/node_modules/**',
-        '**/.git/**',
-        '**/.vscode/**',
-        '**/.idea/**',
-    ],
+	/**
+	 * Exclude files/folders
+	 *
+	 * default: []
+	 */
+	ignore: [
+		'**/.DS_Store',
+		'**/node_modules/**',
+		'**/.git/**',
+		'**/.vscode/**',
+		'**/.idea/**',
+	],
 
-    /**
-     * See [Globby Options](https://github.com/sindresorhus/globby#options)
-     * for additional options
-     */
+	/**
+	 * See [Globby Options](https://github.com/sindresorhus/globby#options)
+	 * for additional options
+	 */
 });
 ```
 
