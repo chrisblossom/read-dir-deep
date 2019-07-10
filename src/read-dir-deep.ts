@@ -7,11 +7,23 @@ export interface Options extends GlobbyOptions {
 	cwd?: string;
 }
 
+const defaultIgnorePatterns = [
+	'**/.DS_Store',
+	'**/node_modules/**',
+	'**/.git/**',
+	'**/.vscode/**',
+	'**/.idea/**',
+	'**/dist/**',
+	'**/build/**',
+	'**/coverage/**',
+];
+
 const defaultPatterns = ['**'];
 const defaultOptions: Options = {
 	deep: Infinity,
 	dot: true,
 	markDirectories: true,
+	ignore: defaultIgnorePatterns,
 };
 
 async function readDirDeep(
@@ -67,4 +79,4 @@ function readDirDeepSync(rootDir: string, options: Options = {}): string[] {
 	return result;
 }
 
-export { readDirDeep, readDirDeepSync };
+export { readDirDeep, readDirDeepSync, defaultIgnorePatterns };

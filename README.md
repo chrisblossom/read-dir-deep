@@ -63,7 +63,8 @@ const files = await readDirDeep(rootDir, {
 	/**
 	 * Exclude files/folders
 	 *
-	 * default: []
+	 * default: see below
+	 * See named export: defaultIgnorePatterns
 	 */
 	ignore: [
 		'**/.DS_Store',
@@ -71,6 +72,9 @@ const files = await readDirDeep(rootDir, {
 		'**/.git/**',
 		'**/.vscode/**',
 		'**/.idea/**',
+		'**/dist/**',
+		'**/build/**',
+		'**/coverage/**',
 	],
 
 	/**

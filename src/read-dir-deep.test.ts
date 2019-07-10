@@ -78,6 +78,33 @@ describe('gets all nested files', () => {
 	});
 });
 
+describe('ignores system files by default', () => {
+	beforeEach(async () => {
+		await Promise.all<string | void>([
+			sandbox.createFile('d.js'),
+			sandbox.createFile('node_modules/d.js'),
+			sandbox.createFile('dist/d.js'),
+			sandbox.createFile('.idea/d.js'),
+			sandbox.createFile('nested/1.js'),
+		]);
+	});
+
+	const checkResult = (result: string[]) => {
+		expect(result).toEqual(['d.js', 'nested/1.js']);
+	};
+
+	test('async', async () => {
+		const result = await readDirDeep(sandbox.dir);
+		checkResult(result);
+	});
+
+	test('sync', () => {
+		const result = readDirDeepSync(sandbox.dir);
+
+		checkResult(result);
+	});
+});
+
 describe('gets all nested files from base directory', () => {
 	beforeEach(async () => {
 		await Promise.all<string | void>([
