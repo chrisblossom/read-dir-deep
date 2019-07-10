@@ -76,6 +76,12 @@ const files = await readDirDeep(rootDir, {
 		'**/build/**',
 		'**/coverage/**',
 	],
+	/**
+	 * Exclude files set in .gitignore
+	 *
+	 * default: true
+	 */
+	gitignore: true,
 
 	/**
 	 * See [Globby Options](https://github.com/sindresorhus/globby#options)

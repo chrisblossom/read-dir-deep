@@ -23,6 +23,7 @@ const defaultOptions: Options = {
 	deep: Infinity,
 	dot: true,
 	markDirectories: true,
+	gitignore: true,
 	ignore: defaultIgnorePatterns,
 };
 

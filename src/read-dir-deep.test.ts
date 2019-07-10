@@ -221,6 +221,61 @@ describe('throws error when rootDir is a relative path', () => {
 	});
 });
 
+describe('option: gitignore', () => {
+	describe('gitignore: true (default)', () => {
+		beforeEach(async () => {
+			await Promise.all<string | void>([
+				sandbox.createFile('.gitignore', 'nested'),
+				sandbox.createFile('d.js'),
+				sandbox.createFile('nested/1.js'),
+			]);
+		});
+
+		const checkResult = (result: string[]) => {
+			expect(result).toEqual(['.gitignore', 'd.js']);
+		};
+
+		test('async', async () => {
+			const result = await readDirDeep(sandbox.dir);
+			checkResult(result);
+		});
+
+		test('sync', () => {
+			const result = readDirDeepSync(sandbox.dir);
+
+			checkResult(result);
+		});
+	});
+
+	describe('gitignore: false', () => {
+		beforeEach(async () => {
+			await Promise.all<string | void>([
+				sandbox.createFile('.gitignore', 'nested'),
+				sandbox.createFile('d.js'),
+				sandbox.createFile('nested/1.js'),
+			]);
+		});
+
+		const checkResult = (result: string[]) => {
+			expect(result).toEqual(['.gitignore', 'd.js', 'nested/1.js']);
+		};
+
+		const rootDir = sandbox.dir;
+		const options = { gitignore: false };
+
+		test('async', async () => {
+			const result = await readDirDeep(rootDir, options);
+			checkResult(result);
+		});
+
+		test('sync', () => {
+			const result = readDirDeepSync(rootDir, options);
+
+			checkResult(result);
+		});
+	});
+});
+
 describe('options', () => {
 	describe('absolute: true', () => {
 		beforeEach(async () => {
