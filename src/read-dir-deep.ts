@@ -1,4 +1,5 @@
 import globby, { sync as globbySync, GlobbyOptions } from 'globby';
+import { validateOptions } from './validate-options';
 import { parseFiles } from './parse-files';
 
 export interface Options extends GlobbyOptions {
@@ -17,6 +18,8 @@ async function readDirDeep(
 	rootDir: string,
 	options: Options = {},
 ): Promise<string[]> {
+	validateOptions(rootDir, options);
+
 	const {
 		cwd = rootDir,
 		patterns = defaultPatterns,
@@ -40,6 +43,8 @@ async function readDirDeep(
 }
 
 function readDirDeepSync(rootDir: string, options: Options = {}): string[] {
+	validateOptions(rootDir, options);
+
 	const {
 		cwd = rootDir,
 		patterns = defaultPatterns,

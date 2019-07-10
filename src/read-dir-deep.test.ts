@@ -177,6 +177,23 @@ describe('throws error when not a directory', () => {
 	});
 });
 
+describe('throws error when rootDir is a relative path', () => {
+	beforeEach(async () => {
+		await sandbox.createFile('nested/a.js');
+	});
+
+	const rootDir = '';
+	const expectedError = 'dir cannot be relative. Received: ""';
+
+	test('async', async () => {
+		await expect(readDirDeep(rootDir)).rejects.toThrow(expectedError);
+	});
+
+	test('sync', () => {
+		expect(() => readDirDeepSync(rootDir)).toThrow(expectedError);
+	});
+});
+
 describe('options', () => {
 	describe('absolute: true', () => {
 		beforeEach(async () => {
@@ -326,6 +343,28 @@ describe('options', () => {
 			const result = readDirDeepSync(rootDir, options);
 
 			checkResult(result);
+		});
+	});
+
+	describe('throws error when cwd is a relative path', () => {
+		beforeEach(async () => {
+			await sandbox.createFile('nested/a.js');
+		});
+
+		const rootDir = sandbox.path.resolve('nested');
+		const options = { cwd: '' };
+		const expectedError = 'options.cwd cannot be relative. Received: ""';
+
+		test('async', async () => {
+			await expect(readDirDeep(rootDir, options)).rejects.toThrow(
+				expectedError,
+			);
+		});
+
+		test('sync', () => {
+			expect(() => readDirDeepSync(rootDir, options)).toThrow(
+				expectedError,
+			);
 		});
 	});
 
