@@ -1,5 +1,5 @@
 import globby, { sync as globbySync, GlobbyOptions } from 'globby';
-import { validateOptions } from './validate-options';
+import { parseArgs, defaultIgnorePatterns } from './parse-args';
 import { parseFiles } from './parse-files';
 
 export interface Options extends GlobbyOptions {
@@ -7,74 +7,46 @@ export interface Options extends GlobbyOptions {
 	cwd?: string;
 }
 
-const defaultIgnorePatterns = [
-	'**/.DS_Store',
-	'**/node_modules/**',
-	'**/.git/**',
-	'**/.vscode/**',
-	'**/.idea/**',
-	'**/dist/**',
-	'**/build/**',
-	'**/coverage/**',
-];
-
-const defaultPatterns = ['**'];
-const defaultOptions: Options = {
-	deep: Infinity,
-	dot: true,
-	markDirectories: true,
-	gitignore: true,
-	ignore: defaultIgnorePatterns,
-};
-
 async function readDirDeep(
 	rootDir: string,
 	options: Options = {},
 ): Promise<string[]> {
-	validateOptions(rootDir, options);
-
 	const {
-		cwd = rootDir,
-		patterns = defaultPatterns,
-		...globbyOptions
-	} = options;
+		rootDir: rootDirParsed,
+		absolute,
+		cwd,
+		patterns,
+		globbyOptions,
+	} = parseArgs(rootDir, options);
 
-	const fileList = await globby(patterns, {
-		cwd: rootDir,
-		...defaultOptions,
-		...globbyOptions,
-	});
+	const fileList = await globby(patterns, globbyOptions);
 
 	const result = parseFiles({
 		files: fileList,
 		cwd,
-		rootDir,
-		absolute: !!options.absolute,
+		rootDir: rootDirParsed,
+		absolute,
 	});
 
 	return result;
 }
 
 function readDirDeepSync(rootDir: string, options: Options = {}): string[] {
-	validateOptions(rootDir, options);
-
 	const {
-		cwd = rootDir,
-		patterns = defaultPatterns,
-		...globbyOptions
-	} = options;
+		rootDir: rootDirParsed,
+		absolute,
+		cwd,
+		patterns,
+		globbyOptions,
+	} = parseArgs(rootDir, options);
 
-	const fileList = globbySync(patterns, {
-		cwd: rootDir,
-		...defaultOptions,
-		...globbyOptions,
-	});
+	const fileList = globbySync(patterns, globbyOptions);
 
 	const result = parseFiles({
 		files: fileList,
 		cwd,
-		rootDir,
-		absolute: !!options.absolute,
+		rootDir: rootDirParsed,
+		absolute,
 	});
 
 	return result;

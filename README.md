@@ -16,9 +16,10 @@ Returns a sorted recursive list of all files inside a directory.
 ## Usage
 
 ```js
+const path = require('path');
 const { readDirDeep, readDirDeepSync } = require('read-dir-deep');
 
-const rootDir = './fake/dir';
+const rootDir = path.resolve(process.cwd(), 'nested');
 
 // async
 const files = await readDirDeep(rootDir);
@@ -28,10 +29,10 @@ const files = readDirDeepSync(rootDir);
 
 console.log(files);
 // [
-//     'a/b/c.js',
-//     'a.js',
-//     'b/a.js',
-//     'b.js',
+//     'nested/a/b/c.js',
+//     'nested/a.js',
+//     'nested/b/a.js',
+//     'nested/b.js',
 // ]
 ```
 
@@ -42,12 +43,18 @@ const files = await readDirDeep(rootDir, {
 	/**
 	 * Return files relative to this directory
 	 *
-	 * default: rootDir
+	 * defaults: rootDir
+	 *    inside process.cwd(): process.cwd()
+	 *    outside process.cwd(): rootDir
 	 */
 	cwd: process.cwd(),
 
 	/**
 	 * Return full file paths
+	 *
+	 * defaults:
+	 *     inside process.cwd: false
+	 *     outside process.cwd: true
 	 */
 	absolute: true,
 
@@ -76,6 +83,7 @@ const files = await readDirDeep(rootDir, {
 		'**/build/**',
 		'**/coverage/**',
 	],
+
 	/**
 	 * Exclude files set in .gitignore
 	 *

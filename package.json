@@ -57,6 +57,8 @@
   },
   "dependencies": {
     "globby": "^10.0.1",
+    "is-path-cwd": "^2.2.0",
+    "is-path-in-cwd": "^3.0.0",
     "path-sort2": "^1.0.0"
   }
 }

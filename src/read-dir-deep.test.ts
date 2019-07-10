@@ -13,9 +13,14 @@ const readDirDeep: typeof readDirDeepActual = async (...args) =>
 const readDirDeepSync: typeof readDirDeepSyncActual = (...args) =>
 	require('./read-dir-deep').readDirDeepSync(...args);
 
+const cwd = process.cwd();
 const sandbox = new TempSandbox();
 beforeEach(async () => {
+	process.chdir(sandbox.dir);
 	await sandbox.clean();
+});
+afterEach(() => {
+	process.chdir(cwd);
 });
 
 afterAll(async () => {
@@ -119,7 +124,12 @@ describe('gets all nested files from base directory', () => {
 	});
 
 	const checkResult = (result: string[]) => {
-		expect(result).toEqual(['.b.js', '0/0.js', '1.js', 'c/c.js']);
+		expect(result).toEqual([
+			'nested/.b.js',
+			'nested/1.js',
+			'nested/0/0.js',
+			'nested/c/c.js',
+		]);
 	};
 
 	const rootDir = sandbox.path.resolve('nested');
@@ -276,33 +286,72 @@ describe('option: gitignore', () => {
 	});
 });
 
-describe('options', () => {
-	describe('absolute: true', () => {
+describe('option: cwd', () => {
+	describe('defaults to process.cwd() when inside process.cwd()', () => {
 		beforeEach(async () => {
-			await Promise.all([
-				sandbox.createFile('a.js'),
+			await Promise.all<string | void>([
+				sandbox.createDir('other'),
+				sandbox.createFile('d.js'),
+				sandbox.createFile('.a.js'),
 				sandbox.createFile('nested/1.js'),
+				sandbox.createFile('nested/.b.js'),
 				sandbox.createFile('nested/0/0.js'),
+				sandbox.createFile('nested/c/c.js'),
 			]);
 		});
 
 		const checkResult = (result: string[]) => {
-			expect(result).toEqual(
-				['a.js', 'nested/1.js', 'nested/0/0.js'].map((pathname) =>
-					slash(path.resolve(sandbox.dir, pathname)),
-				),
-			);
+			expect(result).toEqual([
+				'nested/.b.js',
+				'nested/1.js',
+				'nested/0/0.js',
+				'nested/c/c.js',
+			]);
 		};
 
-		const options = { absolute: true };
+		const rootDir = sandbox.path.resolve('nested');
 
 		test('async', async () => {
-			const result = await readDirDeep(sandbox.dir, options);
+			const result = await readDirDeep(rootDir);
 			checkResult(result);
 		});
 
 		test('sync', () => {
-			const result = readDirDeepSync(sandbox.dir, options);
+			const result = readDirDeepSync(rootDir);
+
+			checkResult(result);
+		});
+	});
+
+	describe('defaults to rootDir when outside process.cwd()', () => {
+		beforeEach(async () => {
+			process.chdir(cwd);
+
+			await Promise.all<string | void>([
+				sandbox.createDir('other'),
+				sandbox.createFile('d.js'),
+				sandbox.createFile('.a.js'),
+				sandbox.createFile('nested/1.js'),
+				sandbox.createFile('nested/.b.js'),
+				sandbox.createFile('nested/0/0.js'),
+				sandbox.createFile('nested/c/c.js'),
+			]);
+		});
+
+		const checkResult = (result: string[]) => {
+			expect(result).toEqual(['.b.js', '0/0.js', '1.js', 'c/c.js']);
+		};
+
+		const rootDir = sandbox.path.resolve('nested');
+		const options = { absolute: false };
+
+		test('async', async () => {
+			const result = await readDirDeep(rootDir, options);
+			checkResult(result);
+		});
+
+		test('sync', () => {
+			const result = readDirDeepSync(rootDir, options);
 
 			checkResult(result);
 		});
@@ -333,45 +382,6 @@ describe('options', () => {
 		const rootDir = sandbox.path.resolve('nested');
 		const options = {
 			cwd: path.resolve(sandbox.dir, 'other'),
-		};
-
-		test('async', async () => {
-			const result = await readDirDeep(rootDir, options);
-			checkResult(result);
-		});
-
-		test('sync', () => {
-			const result = readDirDeepSync(rootDir, options);
-
-			checkResult(result);
-		});
-	});
-
-	describe('cwd: "process.cwd()"', () => {
-		beforeEach(async () => {
-			await Promise.all<string | void>([
-				sandbox.createDir('other'),
-				sandbox.createFile('d.js'),
-				sandbox.createFile('.a.js'),
-				sandbox.createFile('nested/1.js'),
-				sandbox.createFile('nested/.b.js'),
-				sandbox.createFile('nested/0/0.js'),
-				sandbox.createFile('nested/c/c.js'),
-			]);
-		});
-
-		const checkResult = (result: string[]) => {
-			expect(result).toEqual([
-				'nested/.b.js',
-				'nested/1.js',
-				'nested/0/0.js',
-				'nested/c/c.js',
-			]);
-		};
-
-		const rootDir = sandbox.path.resolve('nested');
-		const options = {
-			cwd: sandbox.dir,
 		};
 
 		test('async', async () => {
@@ -449,34 +459,27 @@ describe('options', () => {
 			);
 		});
 	});
+});
 
-	describe('passes options to globby', () => {
+describe('option: absolute', () => {
+	describe('true', () => {
 		beforeEach(async () => {
 			await Promise.all([
 				sandbox.createFile('a.js'),
-				sandbox.createFile('b.js'),
-				sandbox.createFile('c.js'),
-				sandbox.createFile('.a.js'),
 				sandbox.createFile('nested/1.js'),
-				sandbox.createFile('nested/a.js'),
-				sandbox.createFile('nested/b.js'),
 				sandbox.createFile('nested/0/0.js'),
 			]);
 		});
 
 		const checkResult = (result: string[]) => {
-			expect(result).toEqual([
-				'c.js',
-				'nested/1.js',
-				'nested/a.js',
-				'nested/0/0.js',
-			]);
+			expect(result).toEqual(
+				['a.js', 'nested/1.js', 'nested/0/0.js'].map((pathname) =>
+					slash(path.resolve(sandbox.dir, pathname)),
+				),
+			);
 		};
 
-		const options = {
-			dot: false,
-			ignore: ['a.js', '**/b.js'],
-		};
+		const options = { absolute: true };
 
 		test('async', async () => {
 			const result = await readDirDeep(sandbox.dir, options);
@@ -490,36 +493,153 @@ describe('options', () => {
 		});
 	});
 
-	describe('ignore', () => {
+	describe('defaults to true when inside cwd', () => {
 		beforeEach(async () => {
 			await Promise.all([
 				sandbox.createFile('a.js'),
-				sandbox.createFile('.DS_Store'),
-				sandbox.createFile('node_modules/a.js'),
-				sandbox.createFile('.git/a.js'),
-				sandbox.createFile('.vscode/a.js'),
-				sandbox.createFile('.idea/a.js'),
+				sandbox.createFile('nested/1.js'),
 				sandbox.createFile('nested/0/0.js'),
-				sandbox.createFile('nested/0/.DS_Store'),
-				sandbox.createFile('nested/0/node_modules/a.js'),
-				sandbox.createFile('nested/0/.idea/a.js'),
-				sandbox.createFile('nested/0/.vscode/a.js'),
-				sandbox.createFile('nested/0/.git/a.js'),
 			]);
 		});
 
 		const checkResult = (result: string[]) => {
-			expect(result).toEqual(['a.js', 'nested/0/0.js']);
+			expect(result).toEqual(['a.js', 'nested/1.js', 'nested/0/0.js']);
+		};
+
+		const rootDir = sandbox.dir;
+
+		test('async', async () => {
+			const result = await readDirDeep(rootDir);
+			checkResult(result);
+		});
+
+		test('sync', () => {
+			const result = readDirDeepSync(rootDir);
+
+			checkResult(result);
+		});
+	});
+
+	describe('defaults to true when outside cwd', () => {
+		beforeEach(async () => {
+			process.chdir(cwd);
+
+			await Promise.all([
+				sandbox.createFile('a.js'),
+				sandbox.createFile('nested/1.js'),
+				sandbox.createFile('nested/0/0.js'),
+			]);
+		});
+
+		const checkResult = (result: string[]) => {
+			expect(result).toEqual(
+				['a.js', 'nested/1.js', 'nested/0/0.js'].map((pathname) =>
+					slash(path.resolve(sandbox.dir, pathname)),
+				),
+			);
+		};
+
+		const rootDir = sandbox.dir;
+
+		test('async', async () => {
+			const result = await readDirDeep(rootDir);
+			checkResult(result);
+		});
+
+		test('sync', () => {
+			const result = readDirDeepSync(rootDir);
+
+			checkResult(result);
+		});
+	});
+
+	describe('can override when outside cwd', () => {
+		beforeEach(async () => {
+			process.chdir(cwd);
+
+			await Promise.all([
+				sandbox.createFile('a.js'),
+				sandbox.createFile('nested/1.js'),
+				sandbox.createFile('nested/0/0.js'),
+			]);
+		});
+
+		const checkResult = (result: string[]) => {
+			expect(result).toEqual(['a.js', 'nested/1.js', 'nested/0/0.js']);
+		};
+
+		const rootDir = sandbox.dir;
+		const options = { absolute: false };
+
+		test('async', async () => {
+			const result = await readDirDeep(rootDir, options);
+			checkResult(result);
+		});
+
+		test('sync', () => {
+			const result = readDirDeepSync(rootDir, options);
+
+			checkResult(result);
+		});
+	});
+});
+
+describe('passes options to globby', () => {
+	beforeEach(async () => {
+		await Promise.all([
+			sandbox.createFile('a.js'),
+			sandbox.createFile('b.js'),
+			sandbox.createFile('c.js'),
+			sandbox.createFile('.a.js'),
+			sandbox.createFile('nested/1.js'),
+			sandbox.createFile('nested/a.js'),
+			sandbox.createFile('nested/b.js'),
+			sandbox.createFile('nested/0/0.js'),
+		]);
+	});
+
+	const checkResult = (result: string[]) => {
+		expect(result).toEqual([
+			'c.js',
+			'nested/1.js',
+			'nested/a.js',
+			'nested/0/0.js',
+		]);
+	};
+
+	const options = {
+		dot: false,
+		ignore: ['a.js', '**/b.js'],
+	};
+
+	test('async', async () => {
+		const result = await readDirDeep(sandbox.dir, options);
+		checkResult(result);
+	});
+
+	test('sync', () => {
+		const result = readDirDeepSync(sandbox.dir, options);
+
+		checkResult(result);
+	});
+});
+
+describe('option: ignore', () => {
+	describe('ignores files and overrides defaults', () => {
+		beforeEach(async () => {
+			await Promise.all([
+				sandbox.createFile('a.js'),
+				sandbox.createFile('nested/0/0.js'),
+				sandbox.createFile('node_modules/0.js'),
+			]);
+		});
+
+		const checkResult = (result: string[]) => {
+			expect(result).toEqual(['a.js', 'node_modules/0.js']);
 		};
 
 		const options = {
-			ignore: [
-				'**/.DS_Store',
-				'**/node_modules/**',
-				'**/.git/**',
-				'**/.vscode/**',
-				'**/.idea/**',
-			],
+			ignore: ['**/nested/**'],
 		};
 
 		test('async', async () => {
@@ -533,7 +653,9 @@ describe('options', () => {
 			checkResult(result);
 		});
 	});
+});
 
+describe('options: patterns', () => {
 	describe('custom pattern matching', () => {
 		beforeEach(async () => {
 			await Promise.all([

@@ -4,8 +4,8 @@ import pathSort from 'path-sort2';
 interface ParseFilesParameters {
 	files: string[];
 	rootDir: string;
-	cwd: string;
 	absolute: boolean;
+	cwd: string;
 }
 
 function parseFiles({
@@ -16,7 +16,7 @@ function parseFiles({
 }: ParseFilesParameters): string[] {
 	let normalizedFiles = files;
 
-	if (absolute === false && path.resolve(cwd) !== path.resolve(rootDir)) {
+	if (absolute === false && cwd !== rootDir) {
 		const relativeBaseDir = path.relative(cwd, rootDir);
 
 		normalizedFiles = files.map((file): string => {
