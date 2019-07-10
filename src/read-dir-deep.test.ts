@@ -95,15 +95,15 @@ describe('gets all nested files from base directory', () => {
 		expect(result).toEqual(['.b.js', '0/0.js', '1.js', 'c/c.js']);
 	};
 
-	const dir = sandbox.path.resolve('nested');
+	const rootDir = sandbox.path.resolve('nested');
 
 	test('async', async () => {
-		const result = await readDirDeep(dir);
+		const result = await readDirDeep(rootDir);
 		checkResult(result);
 	});
 
 	test('sync', () => {
-		const result = readDirDeepSync(dir);
+		const result = readDirDeepSync(rootDir);
 
 		checkResult(result);
 	});
@@ -154,7 +154,7 @@ describe('handles empty nested directory', () => {
 });
 
 describe('throws error when not a directory', () => {
-	const pathname = path.resolve(sandbox.dir, 'a.js');
+	const rootDir = path.resolve(sandbox.dir, 'a.js');
 
 	beforeEach(async () => {
 		await sandbox.createFile('a.js');
@@ -162,7 +162,7 @@ describe('throws error when not a directory', () => {
 
 	test('async', async () => {
 		await expect(
-			readDirDeep(pathname),
+			readDirDeep(rootDir),
 		).rejects.toThrowErrorMatchingInlineSnapshot(
 			`"The \`cwd\` option must be a path to a directory"`,
 		);
@@ -170,7 +170,7 @@ describe('throws error when not a directory', () => {
 
 	test('sync', () => {
 		expect(() =>
-			readDirDeepSync(pathname),
+			readDirDeepSync(rootDir),
 		).toThrowErrorMatchingInlineSnapshot(
 			`"The \`cwd\` option must be a path to a directory"`,
 		);
@@ -231,18 +231,18 @@ describe('options', () => {
 			]);
 		};
 
-		const dir = sandbox.path.resolve('nested');
+		const rootDir = sandbox.path.resolve('nested');
 		const options = {
 			cwd: path.resolve(sandbox.dir, 'other'),
 		};
 
 		test('async', async () => {
-			const result = await readDirDeep(dir, options);
+			const result = await readDirDeep(rootDir, options);
 			checkResult(result);
 		});
 
 		test('sync', () => {
-			const result = readDirDeepSync(dir, options);
+			const result = readDirDeepSync(rootDir, options);
 
 			checkResult(result);
 		});
@@ -270,18 +270,18 @@ describe('options', () => {
 			]);
 		};
 
-		const dir = sandbox.path.resolve('nested');
+		const rootDir = sandbox.path.resolve('nested');
 		const options = {
 			cwd: sandbox.dir,
 		};
 
 		test('async', async () => {
-			const result = await readDirDeep(dir, options);
+			const result = await readDirDeep(rootDir, options);
 			checkResult(result);
 		});
 
 		test('sync', () => {
-			const result = readDirDeepSync(dir, options);
+			const result = readDirDeepSync(rootDir, options);
 
 			checkResult(result);
 		});
@@ -311,19 +311,19 @@ describe('options', () => {
 			);
 		};
 
-		const dir = sandbox.path.resolve('nested');
+		const rootDir = sandbox.path.resolve('nested');
 		const options = {
 			absolute: true,
 			rootDir: sandbox.dir,
 		};
 
 		test('async', async () => {
-			const result = await readDirDeep(dir, options);
+			const result = await readDirDeep(rootDir, options);
 			checkResult(result);
 		});
 
 		test('sync', () => {
-			const result = readDirDeepSync(dir, options);
+			const result = readDirDeepSync(rootDir, options);
 
 			checkResult(result);
 		});

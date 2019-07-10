@@ -18,13 +18,13 @@ Returns a sorted recursive list of all files inside a directory.
 ```js
 const { readDirDeep, readDirDeepSync } = require('read-dir-deep');
 
-const dir = './fake/dir';
+const rootDir = './fake/dir';
 
 // async
-const files = await readDirDeep(dir);
+const files = await readDirDeep(rootDir);
 
 // sync
-const files = readDirDeepSync(dir);
+const files = readDirDeepSync(rootDir);
 
 console.log(files);
 // [
@@ -38,11 +38,11 @@ console.log(files);
 ## Options
 
 ```js
-const files = await readDirDeep(dir, {
+const files = await readDirDeep(rootDir, {
 	/**
 	 * Return files relative to this directory
 	 *
-	 * default: dir
+	 * default: rootDir
 	 */
 	cwd: process.cwd(),
 

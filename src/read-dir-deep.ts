@@ -14,13 +14,17 @@ const defaultOptions: Options = {
 };
 
 async function readDirDeep(
-	dir: string,
+	rootDir: string,
 	options: Options = {},
 ): Promise<string[]> {
-	const { cwd = dir, patterns = defaultPatterns, ...globbyOptions } = options;
+	const {
+		cwd = rootDir,
+		patterns = defaultPatterns,
+		...globbyOptions
+	} = options;
 
 	const fileList = await globby(patterns, {
-		cwd: dir,
+		cwd: rootDir,
 		...defaultOptions,
 		...globbyOptions,
 	});
@@ -28,18 +32,22 @@ async function readDirDeep(
 	const result = parseFiles({
 		files: fileList,
 		cwd,
-		dir,
+		rootDir,
 		absolute: !!options.absolute,
 	});
 
 	return result;
 }
 
-function readDirDeepSync(dir: string, options: Options = {}): string[] {
-	const { cwd = dir, patterns = defaultPatterns, ...globbyOptions } = options;
+function readDirDeepSync(rootDir: string, options: Options = {}): string[] {
+	const {
+		cwd = rootDir,
+		patterns = defaultPatterns,
+		...globbyOptions
+	} = options;
 
 	const fileList = globbySync(patterns, {
-		cwd: dir,
+		cwd: rootDir,
 		...defaultOptions,
 		...globbyOptions,
 	});
@@ -47,7 +55,7 @@ function readDirDeepSync(dir: string, options: Options = {}): string[] {
 	const result = parseFiles({
 		files: fileList,
 		cwd,
-		dir,
+		rootDir,
 		absolute: !!options.absolute,
 	});
 
