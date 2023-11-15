@@ -1,64 +1,64 @@
 {
-  "name": "read-dir-deep",
-  "version": "7.0.1",
-  "description": "Returns a sorted recursive list of all files inside a directory",
-  "keywords": [
-    "directory",
-    "folder",
-    "dir",
-    "ls",
-    "ll",
-    "file",
-    "list",
-    "recursive",
-    "deep",
-    "globby",
-    "glob"
-  ],
-  "license": "MIT",
-  "private": false,
-  "repository": "chrisblossom/read-dir-deep",
-  "homepage": "https://github.com/chrisblossom/read-dir-deep",
-  "author": "Chris Blossom",
-  "engines": {
-    "node": ">=8.9.0"
-  },
-  "files": [
-    "dist/"
-  ],
-  "main": "dist/read-dir-deep.js",
-  "types": "dist/read-dir-deep.d.ts",
-  "scripts": {
-    "build": "backtrack build --production",
-    "clean": "backtrack clean",
-    "dev": "backtrack dev --development",
-    "format": "backtrack format",
-    "git-pre-commit": "backtrack git-pre-commit",
-    "git-pre-push": "backtrack git-pre-push",
-    "lint": "backtrack lint",
-    "lint.fix": "backtrack lint.fix",
-    "prepublishOnly": "backtrack prepublishOnly",
-    "release": "backtrack release",
-    "test": "backtrack test",
-    "test.ci": "backtrack test.ci",
-    "test.ci-pretest": "backtrack test.ci-pretest",
-    "test.update": "jest --update-snapshot",
-    "test.watch": "jest --watch",
-    "typescript": "backtrack typescript"
-  },
-  "devDependencies": {
-    "@backtrack/core": "^0.2.1",
-    "@backtrack/preset-node": "^0.6.1",
-    "@types/jest": "^24.0.15",
-    "@types/node": "^12.6.2",
-    "temp-sandbox": "^3.0.0",
-    "typescript": "^3.5.3"
-  },
-  "dependencies": {
-    "globby": "^10.0.1",
-    "is-path-cwd": "^2.2.0",
-    "is-path-in-cwd": "^3.0.0",
-    "path-sort2": "^1.0.0",
-    "slash": "^3.0.0"
-  }
+	"name": "read-dir-deep",
+	"version": "7.0.1",
+	"description": "Returns a sorted recursive list of all files inside a directory",
+	"keywords": [
+		"directory",
+		"folder",
+		"dir",
+		"ls",
+		"ll",
+		"file",
+		"list",
+		"recursive",
+		"deep",
+		"globby",
+		"glob"
+	],
+	"license": "MIT",
+	"private": false,
+	"repository": "chrisblossom/read-dir-deep",
+	"homepage": "https://github.com/chrisblossom/read-dir-deep",
+	"author": "Chris Blossom",
+	"engines": {
+		"node": ">=8.9.0"
+	},
+	"files": [
+		"dist/"
+	],
+	"main": "dist/read-dir-deep.js",
+	"types": "dist/read-dir-deep.d.ts",
+	"scripts": {
+		"build": "backtrack build --production",
+		"clean": "backtrack clean",
+		"dev": "backtrack dev --development",
+		"format": "backtrack format",
+		"git-pre-commit": "backtrack git-pre-commit",
+		"git-pre-push": "backtrack git-pre-push",
+		"lint": "backtrack lint",
+		"lint.fix": "backtrack lint.fix",
+		"prepublishOnly": "backtrack prepublishOnly",
+		"release": "backtrack release",
+		"test": "backtrack test",
+		"test.ci": "backtrack test.ci",
+		"test.ci-pretest": "backtrack test.ci-pretest",
+		"test.update": "jest --update-snapshot",
+		"test.watch": "jest --watch",
+		"typescript": "backtrack typescript"
+	},
+	"devDependencies": {
+		"@backtrack/core": "^0.2.1",
+		"@backtrack/preset-node": "^0.6.1",
+		"@types/jest": "^24.0.15",
+		"@types/node": "^12.6.2",
+		"temp-sandbox": "^3.0.0",
+		"typescript": "^3.5.3"
+	},
+	"dependencies": {
+		"globby": "^10.0.1",
+		"is-path-cwd": "^2.2.0",
+		"is-path-in-cwd": "^3.0.0",
+		"path-sort2": "^1.0.0",
+		"slash": "^3.0.0"
+	}
 }
