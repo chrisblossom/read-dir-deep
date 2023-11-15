@@ -14,10 +14,10 @@ const { Backtrack } = require('@backtrack/core');
 const { configManager } = new Backtrack();
 
 const np = {
-    yarn: false,
+	yarn: false,
 };
 
 module.exports = configManager({
-    namespace: 'np',
-    config: np,
+	namespace: 'np',
+	config: np,
 });

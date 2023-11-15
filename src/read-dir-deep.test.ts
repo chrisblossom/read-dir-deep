@@ -1,3 +1,5 @@
+/* eslint-disable jest/expect-expect */
+
 import path from 'path';
 import fs from 'fs';
 import slash from 'slash';
@@ -15,10 +17,12 @@ const readDirDeepSync: typeof readDirDeepSyncActual = (...args) =>
 
 const cwd = process.cwd();
 const sandbox = new TempSandbox();
+
 beforeEach(async () => {
 	process.chdir(sandbox.dir);
 	await sandbox.clean();
 });
+
 afterEach(() => {
 	process.chdir(cwd);
 });
@@ -29,7 +33,7 @@ afterAll(async () => {
 
 describe('gets all nested files', () => {
 	beforeEach(async () => {
-		await Promise.all<string | void>([
+		await Promise.all([
 			sandbox.createFile('.a.js'),
 			sandbox.createFile('a.js'),
 			sandbox.createFile('a b.js'),
@@ -85,7 +89,7 @@ describe('gets all nested files', () => {
 
 describe('ignores system files by default', () => {
 	beforeEach(async () => {
-		await Promise.all<string | void>([
+		await Promise.all([
 			sandbox.createFile('d.js'),
 			sandbox.createFile('node_modules/d.js'),
 			sandbox.createFile('dist/d.js'),
@@ -95,7 +99,10 @@ describe('ignores system files by default', () => {
 	});
 
 	const checkResult = (result: string[]) => {
-		expect(result).toEqual(['d.js', 'nested/1.js']);
+		expect(result).toEqual([
+			'd.js',
+			'nested/1.js',
+		]);
 	};
 
 	test('async', async () => {
@@ -112,7 +119,7 @@ describe('ignores system files by default', () => {
 
 describe('gets all nested files from base directory', () => {
 	beforeEach(async () => {
-		await Promise.all<string | void>([
+		await Promise.all([
 			sandbox.createDir('other'),
 			sandbox.createFile('d.js'),
 			sandbox.createFile('.a.js'),
@@ -234,7 +241,7 @@ describe('throws error when rootDir is a relative path', () => {
 describe('option: gitignore', () => {
 	describe('gitignore: true (default)', () => {
 		beforeEach(async () => {
-			await Promise.all<string | void>([
+			await Promise.all([
 				sandbox.createFile('.gitignore', 'nested'),
 				sandbox.createFile('d.js'),
 				sandbox.createFile('nested/1.js'),
@@ -242,7 +249,10 @@ describe('option: gitignore', () => {
 		});
 
 		const checkResult = (result: string[]) => {
-			expect(result).toEqual(['.gitignore', 'd.js']);
+			expect(result).toEqual([
+				'.gitignore',
+				'd.js',
+			]);
 		};
 
 		test('async', async () => {
@@ -259,7 +269,7 @@ describe('option: gitignore', () => {
 
 	describe('gitignore: false', () => {
 		beforeEach(async () => {
-			await Promise.all<string | void>([
+			await Promise.all([
 				sandbox.createFile('.gitignore', 'nested'),
 				sandbox.createFile('d.js'),
 				sandbox.createFile('nested/1.js'),
@@ -267,7 +277,11 @@ describe('option: gitignore', () => {
 		});
 
 		const checkResult = (result: string[]) => {
-			expect(result).toEqual(['.gitignore', 'd.js', 'nested/1.js']);
+			expect(result).toEqual([
+				'.gitignore',
+				'd.js',
+				'nested/1.js',
+			]);
 		};
 
 		const rootDir = sandbox.dir;
@@ -289,7 +303,7 @@ describe('option: gitignore', () => {
 describe('option: cwd', () => {
 	describe('defaults to process.cwd() when inside process.cwd()', () => {
 		beforeEach(async () => {
-			await Promise.all<string | void>([
+			await Promise.all([
 				sandbox.createDir('other'),
 				sandbox.createFile('d.js'),
 				sandbox.createFile('.a.js'),
@@ -327,7 +341,7 @@ describe('option: cwd', () => {
 		beforeEach(async () => {
 			process.chdir(cwd);
 
-			await Promise.all<string | void>([
+			await Promise.all([
 				sandbox.createDir('other'),
 				sandbox.createFile('d.js'),
 				sandbox.createFile('.a.js'),
@@ -339,7 +353,12 @@ describe('option: cwd', () => {
 		});
 
 		const checkResult = (result: string[]) => {
-			expect(result).toEqual(['.b.js', '0/0.js', '1.js', 'c/c.js']);
+			expect(result).toEqual([
+				'.b.js',
+				'0/0.js',
+				'1.js',
+				'c/c.js',
+			]);
 		};
 
 		const rootDir = sandbox.path.resolve('nested');
@@ -359,7 +378,7 @@ describe('option: cwd', () => {
 
 	describe('cwd is different directory but same path depth', () => {
 		beforeEach(async () => {
-			await Promise.all<string | void>([
+			await Promise.all([
 				sandbox.createDir('other'),
 				sandbox.createFile('d.js'),
 				sandbox.createFile('.a.js'),
@@ -398,7 +417,7 @@ describe('option: cwd', () => {
 
 	describe('cwd: "process.cwd()", absolute: true', () => {
 		beforeEach(async () => {
-			await Promise.all<string | void>([
+			await Promise.all([
 				sandbox.createDir('other'),
 				sandbox.createFile('d.js'),
 				sandbox.createFile('.a.js'),
@@ -473,9 +492,11 @@ describe('option: absolute', () => {
 
 		const checkResult = (result: string[]) => {
 			expect(result).toEqual(
-				['a.js', 'nested/1.js', 'nested/0/0.js'].map((pathname) =>
-					slash(path.resolve(sandbox.dir, pathname)),
-				),
+				[
+					'a.js',
+					'nested/1.js',
+					'nested/0/0.js',
+				].map((pathname) => slash(path.resolve(sandbox.dir, pathname))),
 			);
 		};
 
@@ -503,7 +524,11 @@ describe('option: absolute', () => {
 		});
 
 		const checkResult = (result: string[]) => {
-			expect(result).toEqual(['a.js', 'nested/1.js', 'nested/0/0.js']);
+			expect(result).toEqual([
+				'a.js',
+				'nested/1.js',
+				'nested/0/0.js',
+			]);
 		};
 
 		const rootDir = sandbox.dir;
@@ -533,9 +558,11 @@ describe('option: absolute', () => {
 
 		const checkResult = (result: string[]) => {
 			expect(result).toEqual(
-				['a.js', 'nested/1.js', 'nested/0/0.js'].map((pathname) =>
-					slash(path.resolve(sandbox.dir, pathname)),
-				),
+				[
+					'a.js',
+					'nested/1.js',
+					'nested/0/0.js',
+				].map((pathname) => slash(path.resolve(sandbox.dir, pathname))),
 			);
 		};
 
@@ -565,7 +592,11 @@ describe('option: absolute', () => {
 		});
 
 		const checkResult = (result: string[]) => {
-			expect(result).toEqual(['a.js', 'nested/1.js', 'nested/0/0.js']);
+			expect(result).toEqual([
+				'a.js',
+				'nested/1.js',
+				'nested/0/0.js',
+			]);
 		};
 
 		const rootDir = sandbox.dir;
@@ -609,7 +640,10 @@ describe('passes options to globby', () => {
 
 	const options = {
 		dot: false,
-		ignore: ['a.js', '**/b.js'],
+		ignore: [
+			'a.js',
+			'**/b.js',
+		],
 	};
 
 	test('async', async () => {
@@ -635,7 +669,10 @@ describe('option: ignore', () => {
 		});
 
 		const checkResult = (result: string[]) => {
-			expect(result).toEqual(['a.js', 'node_modules/0.js']);
+			expect(result).toEqual([
+				'a.js',
+				'node_modules/0.js',
+			]);
 		};
 
 		const options = {
@@ -667,10 +704,18 @@ describe('options: patterns', () => {
 		});
 
 		const checkResult = (result: string[]) => {
-			expect(result).toEqual(['a.js', 'nested/0/0.js']);
+			expect(result).toEqual([
+				'a.js',
+				'nested/0/0.js',
+			]);
 		};
 
-		const options = { patterns: ['.', '!**/*.test.js'] };
+		const options = {
+			patterns: [
+				'.',
+				'!**/*.test.js',
+			],
+		};
 
 		test('async', async () => {
 			const result = await readDirDeep(sandbox.dir, options);

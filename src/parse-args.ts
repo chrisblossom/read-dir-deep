@@ -2,6 +2,7 @@ import path from 'path';
 import isPathCwd from 'is-path-cwd';
 import isPathInCwd from 'is-path-in-cwd';
 import slash from 'slash';
+import type globby from 'globby';
 import { validateOptions } from './validate-args';
 import { Options } from './read-dir-deep';
 
@@ -37,8 +38,15 @@ function isInsideProcessCwd(pathname: string): boolean {
 	return insideCwd;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-function parseArgs(rootDir: string, options: Options) {
+interface ParsedArgsReturn {
+	absolute: boolean;
+	rootDir: string;
+	cwd: string;
+	patterns: string[];
+	globbyOptions: globby.GlobbyOptions;
+}
+
+function parseArgs(rootDir: string, options: Options): ParsedArgsReturn {
 	validateOptions(rootDir, options);
 
 	// eslint-disable-next-line prefer-const
@@ -75,7 +83,7 @@ function parseArgs(rootDir: string, options: Options) {
 		cwd,
 		patterns,
 		globbyOptions,
-	} as const;
+	};
 }
 
 export { parseArgs, defaultIgnorePatterns };

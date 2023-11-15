@@ -1,6 +1,6 @@
 # This file is managed by backtrack
 #
-# source: @backtrack/preset-node
+# source: @backtrack/preset-style
 #
 # DO NOT MODIFY
 
@@ -17,6 +17,6 @@ trim_trailing_whitespace = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.yml,.yaml]
+[{*.yml,.yaml}]
 indent_style = space
 indent_size = 4
